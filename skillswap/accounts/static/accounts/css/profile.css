@@ -1,0 +1,126 @@
+        :root {
+            --primary: #4a90e2;
+            --secondary: #f8f9fa;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --teach-color: #00b894;
+            --learn-color: #a29bfe;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #ebeef1;
+            margin: 0;
+            padding: 40px 20px;
+            color: var(--text-main);
+        }
+
+        .profile-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header Section (from user table) */
+        .profile-header {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .user-info h1 { margin: 0; font-size: 2rem; }
+        .user-info p { color: var(--text-muted); margin: 5px 0; }
+        
+        .badge-group { margin-top: 15px; }
+        .status-badge {
+            background: #e1f5fe;
+            color: #01579b;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Skills Grid (from user_skills table) */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .card h3 { margin-top: 0; border-bottom: 2px solid var(--secondary); padding-bottom: 10px; }
+
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .proficiency {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: #f1f1f1;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* Reviews Section (from review table) */
+        .reviews-section {
+            margin-top: 30px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .review-card {
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin: 15px 0;
+            background: var(--secondary);
+        }
+
+        .review-meta {
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .rating-star { color: #f1c40f; }
+
+        .btn-connect {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }

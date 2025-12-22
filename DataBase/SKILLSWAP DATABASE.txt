@@ -158,4 +158,9 @@ CREATE TABLE review (
 
 
 Extras:
-Export on nif laptop: "D:\database_mysql\mysql\bin\mysqldump.exe" -u root -p skillswap > F:\Uni_project_370\Uni_project_370\DataBase\db.sql
+
+cmd /c "mysqldump -u root -p skillswap > DataBase/db.sql"
+cmd /c "mysql -u root -p skillswap < DataBase/db.sql"
+
+python manage.py dbshell
+pip install -r requirements.txt

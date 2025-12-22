@@ -1,13 +1,13 @@
--- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
+-- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
 -- Host: localhost    Database: skillswap
 -- ------------------------------------------------------
--- Server version	10.4.32-MariaDB
+-- Server version	8.0.44
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,9 +21,9 @@
 
 DROP TABLE IF EXISTS `admin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `admin` (
-  `username` varchar(50) NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`username`),
   CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`username`) REFERENCES `person` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -44,13 +44,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `chat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chat` (
-  `chat_id` int(11) NOT NULL AUTO_INCREMENT,
-  `conversation_id` varchar(100) DEFAULT NULL,
-  `sender_id` varchar(50) DEFAULT NULL,
-  `message_text` text DEFAULT NULL,
-  `time_stamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `chat_id` int NOT NULL AUTO_INCREMENT,
+  `conversation_id` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `sender_id` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `message_text` text COLLATE utf8mb4_general_ci,
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`chat_id`),
   KEY `conversation_id` (`conversation_id`),
   KEY `sender_id` (`sender_id`),
@@ -74,12 +74,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `connection`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `connection` (
-  `requester_username` varchar(50) NOT NULL,
-  `receiver_username` varchar(50) NOT NULL,
-  `status` enum('pending','accepted','blocked') DEFAULT 'pending',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `requester_username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `receiver_username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `status` enum('pending','accepted','blocked') COLLATE utf8mb4_general_ci DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`requester_username`,`receiver_username`),
   KEY `receiver_username` (`receiver_username`),
   CONSTRAINT `connection_ibfk_1` FOREIGN KEY (`requester_username`) REFERENCES `user` (`username`),
@@ -102,11 +102,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `conversation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `conversation` (
-  `conversation_id` varchar(100) NOT NULL,
-  `user_one` varchar(50) NOT NULL,
-  `user_two` varchar(50) NOT NULL,
+  `conversation_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `user_one` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `user_two` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`conversation_id`),
   UNIQUE KEY `user_one` (`user_one`,`user_two`),
   KEY `user_two` (`user_two`),
@@ -130,10 +130,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `person`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `person` (
-  `username` varchar(20) NOT NULL,
-  `password` varchar(32) NOT NULL,
+  `username` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -144,6 +144,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
+INSERT INTO `person` VALUES ('chef_marcus','hash_pass_3'),('data_wiz','hash_pass_6'),('fitness_fan','hash_pass_5'),('guitar_hero','hash_pass_2'),('js_newbie','hash_pass_10'),('marketing_gal','hash_pass_8'),('photo_phi','hash_pass_7'),('python_pro','hash_pass_1'),('ux_sarah','hash_pass_4'),('yoga_guru','hash_pass_9');
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,15 +154,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `review`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `review` (
-  `review_id` varchar(100) NOT NULL,
-  `session_id` varchar(100) NOT NULL,
-  `reviewer_username` varchar(50) DEFAULT NULL,
-  `reviewee_username` varchar(50) DEFAULT NULL,
-  `review_text` text DEFAULT NULL,
+  `review_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `session_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `reviewer_username` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `reviewee_username` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `review_text` text COLLATE utf8mb4_general_ci,
   `rating` float DEFAULT NULL,
-  `time_stamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`review_id`,`session_id`),
   KEY `session_id` (`session_id`),
   KEY `reviewer_username` (`reviewer_username`),
@@ -187,16 +188,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `session` (
-  `session_id` varchar(100) NOT NULL,
-  `teacher_username` varchar(50) DEFAULT NULL,
-  `student_username` varchar(50) DEFAULT NULL,
-  `skill_id` int(11) DEFAULT NULL,
-  `credit_used` int(11) DEFAULT 5,
+  `session_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `teacher_username` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `student_username` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `skill_id` int DEFAULT NULL,
+  `credit_used` int DEFAULT '5',
   `schedule_time` datetime DEFAULT NULL,
-  `status` varchar(50) DEFAULT 'pending',
-  `link` text DEFAULT NULL,
+  `status` varchar(50) COLLATE utf8mb4_general_ci DEFAULT 'pending',
+  `link` text COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`session_id`),
   KEY `teacher_username` (`teacher_username`),
   KEY `student_username` (`student_username`),
@@ -222,12 +223,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `session_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `session_list` (
-  `session_id` varchar(100) NOT NULL,
-  `user_username` varchar(50) NOT NULL,
+  `session_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `user_username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `session_time` datetime DEFAULT NULL,
-  `session_status` varchar(50) DEFAULT NULL,
+  `session_status` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`session_id`,`user_username`),
   KEY `user_username` (`user_username`),
   CONSTRAINT `session_list_ibfk_1` FOREIGN KEY (`session_id`) REFERENCES `session` (`session_id`),
@@ -250,15 +251,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `skill`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `skill` (
-  `skill_id` int(11) NOT NULL AUTO_INCREMENT,
-  `skill_name` varchar(100) NOT NULL,
-  `description` text DEFAULT NULL,
+  `skill_id` int NOT NULL AUTO_INCREMENT,
+  `skill_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`skill_id`),
   UNIQUE KEY `skill_name` (`skill_name`),
   FULLTEXT KEY `skill_name_2` (`skill_name`,`description`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -267,6 +268,7 @@ CREATE TABLE `skill` (
 
 LOCK TABLES `skill` WRITE;
 /*!40000 ALTER TABLE `skill` DISABLE KEYS */;
+INSERT INTO `skill` VALUES (1,'Python Programming','Backend development and automation scripting.'),(2,'Acoustic Guitar','Learn chords, strumming patterns, and music theory.'),(3,'Italian Cooking','Authentic pasta, pizza, and sauce techniques.'),(4,'UI/UX Design','Interface design using Figma and Adobe XD.'),(5,'HIIT Workout','High intensity interval training for fitness.'),(6,'PowerBI','Data visualization and business intelligence.'),(7,'Photography','Composition, lighting, and digital editing.'),(8,'SEO Marketing','Search engine optimization and growth hacking.'),(9,'Yoga & Meditation','Physical postures and mental mindfulness.'),(10,'Spanish Language','Basic to advanced conversational Spanish.');
 /*!40000 ALTER TABLE `skill` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,17 +278,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `username` varchar(50) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `bio` varchar(255) DEFAULT NULL,
-  `average_rating` float DEFAULT 0,
-  `total_credits` int(11) DEFAULT 50,
-  `experience_level` int(11) DEFAULT 1,
+  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `bio` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `average_rating` float DEFAULT '0',
+  `total_credits` int DEFAULT '50',
+  `experience_level` int DEFAULT '1',
   `join_date` date DEFAULT NULL,
-  `status` tinyint(1) DEFAULT 1,
+  `status` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`username`),
   UNIQUE KEY `email` (`email`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`username`) REFERENCES `person` (`username`)
@@ -299,6 +301,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('chef_marcus','Marcus V.','marcus@cook.com','Master of Italian cuisine. Looking for help with Social Media Marketing.',4.5,55,3,'2023-03-05',1),('data_wiz','Jordan Smith','j.smith@data.com','Data Scientist. Teaching PowerBI. Looking for French conversation practice.',5,90,5,'2023-05-01',1),('fitness_fan','Chloe Adams','chloe@fit.net','Certified Trainer. Teaching HIIT workouts. Wanting to learn Photography.',4.2,30,2,'2023-04-12',1),('guitar_hero','Liam Chen','liam@music.io','Professional musician. Teaching Acoustic Guitar for UI Design tips.',4.7,40,4,'2023-02-10',1),('js_newbie','Sam Wilson','sam@learn.io','Just starting my tech journey. Willing to teach English for JS help.',0,50,1,'2023-08-12',1),('marketing_gal','Elena Rodriguez','elena@growth.co','Marketing Strategist. Swap SEO growth hacks for Javascript basics.',4.4,50,3,'2023-06-10',1),('photo_phi','Philip Ng','phil@lens.com','Travel Photographer. Teaching Lightroom. Wanting to learn Basic Yoga.',4.6,45,3,'2023-05-15',1),('python_pro','Alex Rivera','alex@dev.com','Senior Dev. I can teach Python & SQL. Want to learn Spanish.',4.9,75,5,'2023-01-15',1),('ux_sarah','Sarah Jenkins','sarah@design.me','UI/UX Designer. I swap Figma tutorials for Backend logic help.',4.8,60,4,'2023-03-20',1),('yoga_guru','Maya Patil','maya@zen.com','Yoga Instructor. Teaching mindfulness. Interested in learning Video Editing.',4.9,65,4,'2023-07-01',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,12 +311,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user_skills`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_skills` (
-  `username` varchar(50) NOT NULL,
-  `skill_id` int(11) NOT NULL,
-  `skill_type` enum('TEACH','LEARN') NOT NULL,
-  `proficiency_level` varchar(50) DEFAULT NULL,
+  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `skill_id` int NOT NULL,
+  `skill_type` enum('TEACH','LEARN') COLLATE utf8mb4_general_ci NOT NULL,
+  `proficiency_level` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`username`,`skill_id`,`skill_type`),
   KEY `skill_id` (`skill_id`),
   CONSTRAINT `user_skills_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE,
@@ -327,6 +330,7 @@ CREATE TABLE `user_skills` (
 
 LOCK TABLES `user_skills` WRITE;
 /*!40000 ALTER TABLE `user_skills` DISABLE KEYS */;
+INSERT INTO `user_skills` VALUES ('data_wiz',6,'TEACH','Expert'),('data_wiz',10,'LEARN','Beginner'),('fitness_fan',5,'TEACH','Intermediate'),('fitness_fan',7,'LEARN','Beginner'),('guitar_hero',2,'TEACH','Expert'),('guitar_hero',4,'LEARN','Intermediate'),('python_pro',1,'TEACH','Expert'),('python_pro',10,'LEARN','Beginner'),('ux_sarah',1,'LEARN','Intermediate'),('ux_sarah',4,'TEACH','Expert');
 /*!40000 ALTER TABLE `user_skills` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -339,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-22 14:20:12
+-- Dump completed on 2025-12-23  5:33:47

@@ -1,0 +1,131 @@
+        :root {
+            --bg: #f0f2f5;
+            --sidebar: #1a202c;
+            --primary: #4c51bf;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --white: #ffffff;
+            --success: #48bb78;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            background-color: var(--bg);
+            color: var(--text-dark);
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 260px;
+            background: var(--sidebar);
+            height: 100vh;
+            color: white;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav .logo {
+            padding: 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #a3b1ff;
+            border-bottom: 1px solid #2d3748;
+        }
+
+        nav ul { list-style: none; padding: 20px 0; margin: 0; flex-grow: 1; }
+        nav ul li {
+            padding: 15px 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #cbd5e0;
+        }
+        nav ul li:hover { background: #2d3748; color: white; }
+        nav ul li.active { background: var(--primary); color: white; border-right: 4px solid #a3b1ff; }
+
+        /* Main Area */
+        main {
+            margin-left: 260px;
+            padding: 40px;
+            width: calc(100% - 260px);
+        }
+
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        /* Stats Row (From 'user' table) */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .stat-card small { color: var(--text-light); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; }
+        .stat-card div { font-size: 1.5rem; font-weight: bold; margin-top: 5px; color: var(--primary); }
+
+        /* Content Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+
+        .card h3 { margin-top: 0; margin-bottom: 20px; font-size: 1.1rem; border-bottom: 1px solid #edf2f7; padding-bottom: 10px; }
+
+        /* Table Styling (Sessions) */
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; color: var(--text-light); font-size: 0.85rem; padding: 12px; }
+        td { padding: 12px; border-top: 1px solid #edf2f7; font-size: 0.9rem; }
+
+        .status-pill {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .pending { background: #fffaf0; color: #dd6b20; }
+        .accepted { background: #f0fff4; color: #38a169; }
+
+        /* Review Section (New) */
+        .review-block {
+            padding: 15px 0;
+            border-bottom: 1px solid #f7fafc;
+        }
+        .review-block:last-child { border-bottom: none; }
+        .rev-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .rev-user { font-weight: bold; font-size: 0.9rem; }
+        .rev-stars { color: #ecc94b; }
+        .rev-text { font-size: 0.85rem; color: var(--text-light); line-height: 1.4; }
+
+        /* Skill Tags */
+        .tag {
+            display: inline-block;
+            background: #ebf4ff;
+            color: #4c51bf;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            margin: 4px;
+        }

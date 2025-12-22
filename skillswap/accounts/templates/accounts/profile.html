@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - SkillSwap</title>
+    <link rel="stylesheet" href=" {% static 'accounts/css/profile.css' %} ">
+
+</head>
+<body>
+
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="avatar">JD</div>
+        <div class="user-info">
+            <h1>John Doe</h1> <p>@johndoe123 • Member since 2023</p> <p><em>"Passionate developer looking to trade JS skills for Guitar lessons."</em></p> <div class="badge-group">
+                <span class="status-badge">Level 4 Mentor</span> <button class="btn-connect">Request Connection</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h3 style="color: var(--teach-color);">Skills I Teach</h3>
+            <div class="skill-item">
+                <span>Web Development</span>
+                <span class="proficiency">Expert</span>
+            </div>
+            <div class="skill-item">
+                <span>Database Design</span>
+                <span class="proficiency">Intermediate</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="color: var(--learn-color);">Skills I'm Learning</h3>
+            <div class="skill-item">
+                <span>Acoustic Guitar</span>
+                <span class="proficiency">Beginner</span>
+            </div>
+            <div class="skill-item">
+                <span>Spanish</span>
+                <span class="proficiency">Novice</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="reviews-section">
+        <h3>Recent Reviews</h3>
+        
+        <div class="review-card">
+            <div class="review-meta">
+                <span>Sarah Jenkins</span>
+                <span><span class="rating-star">★</span> 5.0</span>
+            </div>
+            <p>"John is an incredible teacher! He helped me understand MySQL joins in under 30 minutes."</p>
+        </div>
+
+        <div class="review-card">
+            <div class="review-meta">
+                <span>Mike Ross</span>
+                <span><span class="rating-star">★</span> 4.5</span>
+            </div>
+            <p>"Very patient and knowledgeable. Highly recommended for coding help."</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

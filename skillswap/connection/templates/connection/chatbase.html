@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href=" {% static 'connection/css/chat.css' %} ">
+</head>
+<body>
+    <div class="messenger-wrapper">
+        <div class="convo-sidebar">
+            <h3 style="padding: 15px;">Messages</h3>
+            <a href="/chat/conv101/" class="convo-item active">
+                <strong>John Doe</strong>
+                <p style="font-size: 0.8rem; margin: 0;">Python Swap</p>
+            </a>
+            <a href="/chat/conv102/" class="convo-item">
+                <strong>Jane Smith</strong>
+                <p style="font-size: 0.8rem; margin: 0;">Guitar Lesson</p>
+            </a>
+        </div>
+
+        <div class="chat-window">
+            {% block chat_content %}
+            <div style="text-align: center; margin-top: 20%; color: #888;">
+                <h3>Select a conversation to start chatting</h3>
+            </div>
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

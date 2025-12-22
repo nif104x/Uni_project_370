@@ -1,0 +1,22 @@
+{% extends "connection/chatbase.html" %}
+{% comment %} {% load static %} {% endcomment %}
+{% block chat_content %}
+    <div style="padding: 15px; border-bottom: 1px solid #eee;">
+        <strong>Chatting with John Doe</strong>
+    </div>
+
+    <div class="message-display">
+        <div class="bubble received">Hey! Are we still on for the Python session?</div>
+        <div class="bubble sent">Yes! See you at 5 PM.</div>
+        <div class="bubble received">Perfect. I've prepared the dataset.</div>
+    </div>
+
+    <div class="message-input-area">
+        <form class="message-form" method="POST" action="/send-message/conv101/">
+            <input type="text" name="message_text" placeholder="Write a message..." required autocomplete="off">
+            <button type="submit" style="background: #0084ff; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">
+                Send
+            </button>
+        </form>
+    </div>
+{% endblock %}

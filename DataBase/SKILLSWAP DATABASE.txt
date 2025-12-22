@@ -1,0 +1,161 @@
+﻿CREATE DATABASE skillswap;
+
+
+USERS:
+
+
+ CREATE TABLE person(
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+ );
+
+
+CREATE TABLE user (
+    username VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
+    bio VARCHAR(255),
+    average_rating FLOAT DEFAULT 0,
+    total_credits INT DEFAULT 50,
+    experience_level INT DEFAULT 1,
+    join_date DATE,
+    status BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (username) REFERENCES person(username)
+);
+
+
+CREATE TABLE admin (d
+    username VARCHAR(50) PRIMARY KEY,
+    FOREIGN KEY (username) REFERENCES person(username)
+);
+
+
+CONNECTION:
+CREATE TABLE connection (
+    requester_username VARCHAR(50),
+    receiver_username VARCHAR(50),
+    status ENUM('pending', 'accepted', 'blocked') DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (requester_username, receiver_username), -- No ID needed!
+    FOREIGN KEY (requester_username) REFERENCES user(username),
+    FOREIGN KEY (receiver_username) REFERENCES user(username)
+);
+
+
+SKILL:
+
+
+-- The Master Skill Library
+CREATE TABLE skill (
+    skill_id INT AUTO_INCREMENT PRIMARY KEY,
+    skill_name VARCHAR(100) NOT NULL UNIQUE,
+    description TEXT,
+    FULLTEXT(skill_name, description) -- This makes your keyword search super fast
+);
+
+
+-- The Bridge connecting Users to the Skills
+CREATE TABLE user_skills (
+    username VARCHAR(50),
+    skill_id INT,
+    skill_type ENUM('TEACH', 'LEARN') NOT NULL,
+    proficiency_level VARCHAR(50),
+    PRIMARY KEY (username, skill_id, skill_type),
+    FOREIGN KEY (username) REFERENCES user(username) ON DELETE CASCADE,
+    FOREIGN KEY (skill_id) REFERENCES skill(skill_id) ON DELETE CASCADE
+);
+
+
+
+
+CHAT:
+
+
+-- The conversation table with a VARCHAR ID
+CREATE TABLE conversation (
+    conversation_id VARCHAR(100) PRIMARY KEY,
+    user_one VARCHAR(50) NOT NULL,
+    user_two VARCHAR(50) NOT NULL,
+    UNIQUE(user_one, user_two),
+    FOREIGN KEY (user_one) REFERENCES person(username),
+    FOREIGN KEY (user_two) REFERENCES person(username)
+);
+
+
+-- The chat table linked to the VARCHAR ID
+CREATE TABLE chat (
+    chat_id INT AUTO_INCREMENT PRIMARY KEY,
+    conversation_id VARCHAR(100),
+    sender_id VARCHAR(50),
+    message_text TEXT,
+    time_stamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (conversation_id) REFERENCES conversation(conversation_id),
+    FOREIGN KEY (sender_id) REFERENCES person(username)
+);
+
+
+
+
+SESSION:
+
+
+CREATE TABLE session (
+    session_id VARCHAR(100) PRIMARY KEY,
+    teacher_username VARCHAR(50),
+    student_username VARCHAR(50),
+    skill_id INT,
+    credit_used INT DEFAULT 5, 
+    schedule_time DATETIME,
+    status VARCHAR(50) DEFAULT 'pending', 
+    link TEXT,
+    FOREIGN KEY (teacher_username) REFERENCES user(username),
+    FOREIGN KEY (student_username) REFERENCES user(username),
+    FOREIGN KEY (skill_id) REFERENCES skill(skill_id)
+);
+
+
+CREATE TABLE session_list (
+    session_id VARCHAR(100),
+    user_username VARCHAR(50),
+    session_time DATETIME,
+    session_status VARCHAR(50),
+    PRIMARY KEY (session_id, user_username),
+    FOREIGN KEY (session_id) REFERENCES session(session_id),
+    FOREIGN KEY (user_username) REFERENCES user(username)
+);
+
+
+
+
+REVIEW:
+
+
+CREATE TABLE review (
+    review_id VARCHAR(100),
+    session_id VARCHAR(100),
+    reviewer_username VARCHAR(50),
+    reviewee_username VARCHAR(50),
+    review_text TEXT,
+    rating FLOAT,
+    time_stamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (review_id, session_id),
+    FOREIGN KEY (session_id) REFERENCES session(session_id),
+    FOREIGN KEY (reviewer_username) REFERENCES user(username),
+    FOREIGN KEY (reviewee_username) REFERENCES user(username)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Extras:
+Export on nif laptop: "D:\database_mysql\mysql\bin\mysqldump.exe" -u root -p skillswap > F:\Uni_project_370\Uni_project_370\DataBase\db.sql

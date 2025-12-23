@@ -126,6 +126,57 @@ LOCK TABLES `conversation` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `django_migrations`
+--
+
+DROP TABLE IF EXISTS `django_migrations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `django_migrations` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `app` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `applied` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_migrations`
+--
+
+LOCK TABLES `django_migrations` WRITE;
+/*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
+INSERT INTO `django_migrations` VALUES (1,'sessions','0001_initial','2025-12-23 04:08:04.610943');
+/*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `django_session`
+--
+
+DROP TABLE IF EXISTS `django_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `django_session` (
+  `session_key` varchar(40) NOT NULL,
+  `session_data` longtext NOT NULL,
+  `expire_date` datetime(6) NOT NULL,
+  PRIMARY KEY (`session_key`),
+  KEY `django_session_expire_date_a5c62663` (`expire_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `django_session`
+--
+
+LOCK TABLES `django_session` WRITE;
+/*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
+/*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `person`
 --
 
@@ -145,7 +196,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
-INSERT INTO `person` VALUES ('chef_marcus','hash_pass_3'),('data_wiz','hash_pass_6'),('fitness_fan','hash_pass_5'),('guitar_hero','hash_pass_2'),('js_newbie','hash_pass_10'),('marketing_gal','hash_pass_8'),('photo_phi','hash_pass_7'),('python_pro','hash_pass_1'),('ux_sarah','hash_pass_4'),('yoga_guru','hash_pass_9');
+INSERT INTO `person` VALUES ('arvitexia','12345678'),('chef_marcus','hash_pass_3'),('data_wiz','hash_pass_6'),('fitness_fan','hash_pass_5'),('guitar_hero','hash_pass_2'),('js_newbie','hash_pass_10'),('marketing_gal','hash_pass_8'),('nifx_12345','rebel@@3270x'),('photo_phi','hash_pass_7'),('python_pro','hash_pass_1'),('ux_sarah','hash_pass_4'),('yoga_guru','hash_pass_9');
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -302,7 +353,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('chef_marcus','Marcus V.','marcus@cook.com','Master of Italian cuisine. Looking for help with Social Media Marketing.',4.5,55,3,'2023-03-05',1),('data_wiz','Jordan Smith','j.smith@data.com','Data Scientist. Teaching PowerBI. Looking for French conversation practice.',5,90,5,'2023-05-01',1),('fitness_fan','Chloe Adams','chloe@fit.net','Certified Trainer. Teaching HIIT workouts. Wanting to learn Photography.',4.2,30,2,'2023-04-12',1),('guitar_hero','Liam Chen','liam@music.io','Professional musician. Teaching Acoustic Guitar for UI Design tips.',4.7,40,4,'2023-02-10',1),('js_newbie','Sam Wilson','sam@learn.io','Just starting my tech journey. Willing to teach English for JS help.',0,50,1,'2023-08-12',1),('marketing_gal','Elena Rodriguez','elena@growth.co','Marketing Strategist. Swap SEO growth hacks for Javascript basics.',4.4,50,3,'2023-06-10',1),('photo_phi','Philip Ng','phil@lens.com','Travel Photographer. Teaching Lightroom. Wanting to learn Basic Yoga.',4.6,45,3,'2023-05-15',1),('python_pro','Alex Rivera','alex@dev.com','Senior Dev. I can teach Python & SQL. Want to learn Spanish.',4.9,75,5,'2023-01-15',1),('ux_sarah','Sarah Jenkins','sarah@design.me','UI/UX Designer. I swap Figma tutorials for Backend logic help.',4.8,60,4,'2023-03-20',1),('yoga_guru','Maya Patil','maya@zen.com','Yoga Instructor. Teaching mindfulness. Interested in learning Video Editing.',4.9,65,4,'2023-07-01',1);
+INSERT INTO `user` VALUES ('arvitexia','Mustafa Arvit Rezwan','arvit@gmail.com',NULL,0,50,1,'2025-12-23',1),('chef_marcus','Marcus V.','marcus@cook.com','Master of Italian cuisine. Looking for help with Social Media Marketing.',4.5,55,3,'2023-03-05',1),('data_wiz','Jordan Smith','j.smith@data.com','Data Scientist. Teaching PowerBI. Looking for French conversation practice.',5,90,5,'2023-05-01',1),('fitness_fan','Chloe Adams','chloe@fit.net','Certified Trainer. Teaching HIIT workouts. Wanting to learn Photography.',4.2,30,2,'2023-04-12',1),('guitar_hero','Liam Chen','liam@music.io','Professional musician. Teaching Acoustic Guitar for UI Design tips.',4.7,40,4,'2023-02-10',1),('js_newbie','Sam Wilson','sam@learn.io','Just starting my tech journey. Willing to teach English for JS help.',0,50,1,'2023-08-12',1),('marketing_gal','Elena Rodriguez','elena@growth.co','Marketing Strategist. Swap SEO growth hacks for Javascript basics.',4.4,50,3,'2023-06-10',1),('nifx_12345','Naimul Islam','nif3270x@gmail.com',NULL,0,50,1,'2025-12-23',1),('photo_phi','Philip Ng','phil@lens.com','Travel Photographer. Teaching Lightroom. Wanting to learn Basic Yoga.',4.6,45,3,'2023-05-15',1),('python_pro','Alex Rivera','alex@dev.com','Senior Dev. I can teach Python & SQL. Want to learn Spanish.',4.9,75,5,'2023-01-15',1),('ux_sarah','Sarah Jenkins','sarah@design.me','UI/UX Designer. I swap Figma tutorials for Backend logic help.',4.8,60,4,'2023-03-20',1),('yoga_guru','Maya Patil','maya@zen.com','Yoga Instructor. Teaching mindfulness. Interested in learning Video Editing.',4.9,65,4,'2023-07-01',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -344,4 +395,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-23  7:05:57
+-- Dump completed on 2025-12-23 10:11:43

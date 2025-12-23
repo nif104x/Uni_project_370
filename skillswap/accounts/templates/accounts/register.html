@@ -16,8 +16,19 @@
             <h2>Join the Community</h2>
         </div>
 
-        <form action="/register/" method="POST">
+        <form action="" method="POST">
             {% csrf_token %}
+
+            <!-- ERROR DISPLAY (added) -->
+            {% if form.errors %}
+                <small style="color:red; display:block; margin-bottom:10px;">
+                    {{ form.username.errors }}
+                    {{ form.password.errors }}
+                    {{ form.name.errors }}
+                    {{ form.email.errors }}
+                    {{ form.non_field_errors }}
+                </small>
+            {% endif %}
             
             <div class="form-grid">
                 <div class="form-group">
@@ -37,11 +48,6 @@
                     <label>Email Address</label>
                     <input type="email" name="email" placeholder="john@example.com" required>
                 </div>
-
-                {% comment %} <div class="form-group full-width">
-                    <label>Short Bio</label>
-                    <textarea name="bio" placeholder="Tell us what you want to teach or learn..."></textarea>
-                </div> {% endcomment %}
             </div>
 
             <button type="submit" class="register-btn">Create Account</button>

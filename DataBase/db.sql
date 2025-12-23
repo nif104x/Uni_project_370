@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `admin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `admin` (
-  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`username`),
   CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`username`) REFERENCES `person` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -47,9 +47,9 @@ DROP TABLE IF EXISTS `chat`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chat` (
   `chat_id` int NOT NULL AUTO_INCREMENT,
-  `conversation_id` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `sender_id` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `message_text` text COLLATE utf8mb4_general_ci,
+  `conversation_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `sender_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `message_text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`chat_id`),
   KEY `conversation_id` (`conversation_id`),
@@ -76,9 +76,9 @@ DROP TABLE IF EXISTS `connection`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `connection` (
-  `requester_username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `receiver_username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `status` enum('pending','accepted','blocked') COLLATE utf8mb4_general_ci DEFAULT 'pending',
+  `requester_username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `receiver_username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `status` enum('pending','accepted','blocked') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'pending',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`requester_username`,`receiver_username`),
   KEY `receiver_username` (`receiver_username`),
@@ -93,6 +93,7 @@ CREATE TABLE `connection` (
 
 LOCK TABLES `connection` WRITE;
 /*!40000 ALTER TABLE `connection` DISABLE KEYS */;
+INSERT INTO `connection` VALUES ('chef_marcus','marketing_gal','pending','2023-10-15 02:00:00'),('data_wiz','python_pro','accepted','2023-10-05 03:15:00'),('guitar_hero','ux_sarah','accepted','2023-10-02 05:30:00'),('js_newbie','python_pro','pending','2023-10-16 13:10:00'),('marketing_gal','js_newbie','accepted','2023-10-12 10:45:00'),('photo_phi','yoga_guru','pending','2023-10-17 06:00:00'),('python_pro','ux_sarah','accepted','2023-10-01 04:00:00'),('yoga_guru','fitness_fan','accepted','2023-10-10 08:20:00');
 /*!40000 ALTER TABLE `connection` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,9 +105,9 @@ DROP TABLE IF EXISTS `conversation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `conversation` (
-  `conversation_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `user_one` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `user_two` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `conversation_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `user_one` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `user_two` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`conversation_id`),
   UNIQUE KEY `user_one` (`user_one`,`user_two`),
   KEY `user_two` (`user_two`),
@@ -132,8 +133,8 @@ DROP TABLE IF EXISTS `person`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `person` (
-  `username` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(32) COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -156,11 +157,11 @@ DROP TABLE IF EXISTS `review`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `review` (
-  `review_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `session_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `reviewer_username` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `reviewee_username` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `review_text` text COLLATE utf8mb4_general_ci,
+  `review_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `session_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `reviewer_username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `reviewee_username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `review_text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `rating` float DEFAULT NULL,
   `time_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`review_id`,`session_id`),
@@ -190,14 +191,14 @@ DROP TABLE IF EXISTS `session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `session` (
-  `session_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `teacher_username` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `student_username` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `session_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `teacher_username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `student_username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `skill_id` int DEFAULT NULL,
   `credit_used` int DEFAULT '5',
   `schedule_time` datetime DEFAULT NULL,
-  `status` varchar(50) COLLATE utf8mb4_general_ci DEFAULT 'pending',
-  `link` text COLLATE utf8mb4_general_ci,
+  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'pending',
+  `link` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`session_id`),
   KEY `teacher_username` (`teacher_username`),
   KEY `student_username` (`student_username`),
@@ -225,10 +226,10 @@ DROP TABLE IF EXISTS `session_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `session_list` (
-  `session_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `user_username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `session_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `user_username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `session_time` datetime DEFAULT NULL,
-  `session_status` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `session_status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`session_id`,`user_username`),
   KEY `user_username` (`user_username`),
   CONSTRAINT `session_list_ibfk_1` FOREIGN KEY (`session_id`) REFERENCES `session` (`session_id`),
@@ -254,8 +255,8 @@ DROP TABLE IF EXISTS `skill`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `skill` (
   `skill_id` int NOT NULL AUTO_INCREMENT,
-  `skill_name` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `description` text COLLATE utf8mb4_general_ci,
+  `skill_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`skill_id`),
   UNIQUE KEY `skill_name` (`skill_name`),
   FULLTEXT KEY `skill_name_2` (`skill_name`,`description`)
@@ -280,10 +281,10 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `bio` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `bio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `average_rating` float DEFAULT '0',
   `total_credits` int DEFAULT '50',
   `experience_level` int DEFAULT '1',
@@ -313,10 +314,10 @@ DROP TABLE IF EXISTS `user_skills`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user_skills` (
-  `username` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `skill_id` int NOT NULL,
-  `skill_type` enum('TEACH','LEARN') COLLATE utf8mb4_general_ci NOT NULL,
-  `proficiency_level` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `skill_type` enum('TEACH','LEARN') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `proficiency_level` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`username`,`skill_id`,`skill_type`),
   KEY `skill_id` (`skill_id`),
   CONSTRAINT `user_skills_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE,
@@ -343,4 +344,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-23  5:33:47
+-- Dump completed on 2025-12-23  7:05:57

@@ -3,141 +3,202 @@
 {% load static %}
 
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SkillSwap | Dashboard</title>
-    <link rel="stylesheet" href=" {% static 'accounts/css/dashboard.css' %} ">
-</head>
+    <link rel="stylesheet" href=" {% static 'accounts/css/dashboard.css' %} " />
+  </head>
 
-<body>
-
+  <body>
     <nav>
-        <div class="logo">SkillSwap</div>
-        <ul>
-            <li class="active">Dashboard</li>
-            <li>Connections</li>
-            <li>Messages</li>
-            <li>Session History</li>
-            <li>My Profile</li>
-        </ul>
+      <div class="logo">SkillSwap</div>
+      <ul>
+        <li class="active">Dashboard</li>
+        <li>Connections</li>
+        <li>Messages</li>
+        <li>Session History</li>
+        <li>My Profile</li>
+      </ul>
     </nav>
 
     <main>
-        <div class="header-flex">
-            <h1>Overview</h1>
-            <div class="search-engine-box">
-                <form action="/discovery/search/" method="GET" style="display: flex; gap: 10px;">
-                    <input type="text" name="q" placeholder="Find a mentor or skill..." 
-                        style="padding: 10px 20px; border-radius: 20px; border: 1px solid #ddd; width: 300px;">
-                    <button type="submit" 
-                            style="background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer;">
-                        Search
-                    </button>
-                </form>
-            </div>
-
-            <div class="user-pill" style="background: white; padding: 8px 20px; border-radius: 30px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                <strong>John Doe</strong> <small>(@johndoe)</small>
-            </div>
+      <div class="header-flex">
+        <h1>Overview</h1>
+        <div class="search-engine-box">
+          <form
+            action="/discovery/search/"
+            method="GET"
+            style="display: flex; gap: 10px"
+          >
+            <input
+              type="text"
+              name="q"
+              placeholder="Find a mentor or skill..."
+              style="
+                padding: 10px 20px;
+                border-radius: 20px;
+                border: 1px solid #ddd;
+                width: 300px;
+              "
+            />
+            <button
+              type="submit"
+              style="
+                background: var(--primary);
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 20px;
+                cursor: pointer;
+              "
+            >
+              Search
+            </button>
+          </form>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <small>Total Credits</small>
-                <div>50</div>
+        <div
+          class="user-pill"
+          style="
+            background: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+          "
+        >
+          <strong>John Doe</strong> <small>(@johndoe)</small>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <small>Total Credits</small>
+          <div>50</div>
+        </div>
+        <div class="stat-card">
+          <small>Average Rating</small>
+          <div>4.8 ⭐</div>
+        </div>
+        <div class="stat-card">
+          <small>Experience</small>
+          <div>Level 5</div>
+        </div>
+        <div class="stat-card">
+          <small>Status</small>
+          <div style="color: var(--success)">Active</div>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="left-col">
+          <div class="card">
+            <h3>Upcoming Sessions</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Partner</th>
+                  <th>Skill</th>
+                  <th>Date/Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>@mikesmith</td>
+                  <td>Web Design</td>
+                  <td>Dec 24, 10:00 AM</td>
+                  <td><span class="status-pill accepted">Accepted</span></td>
+                </tr>
+                <tr>
+                  <td>@sarah_j</td>
+                  <td>Spanish 101</td>
+                  <td>Dec 26, 02:00 PM</td>
+                  <td><span class="status-pill pending">Pending</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>My Skill Library</h3>
+            <p style="font-size: 0.8rem; color: var(--text-light)">TEACHING</p>
+            <div class="tag-group">
+              <span class="tag">Python</span
+              ><span class="tag">SQL Databases</span
+              ><span class="tag">Project Management</span>
             </div>
-            <div class="stat-card">
-                <small>Average Rating</small>
-                <div>4.8 ⭐</div>
+            <p
+              style="
+                font-size: 0.8rem;
+                color: var(--text-light);
+                margin-top: 15px;
+              "
+            >
+              LEARNING
+            </p>
+            <div class="tag-group">
+              <span class="tag" style="background: #fff5f5; color: #c53030"
+                >Acoustic Guitar</span
+              >
+              <span class="tag" style="background: #fff5f5; color: #c53030"
+                >Public Speaking</span
+              >
             </div>
-            <div class="stat-card">
-                <small>Experience</small>
-                <div>Level 5</div>
-            </div>
-            <div class="stat-card">
-                <small>Status</small>
-                <div style="color: var(--success);">Active</div>
-            </div>
+          </div>
         </div>
 
-        <div class="dashboard-grid">
-            <div class="left-col">
-                <div class="card">
-                    <h3>Upcoming Sessions</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Partner</th>
-                                <th>Skill</th>
-                                <th>Date/Time</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>@mikesmith</td>
-                                <td>Web Design</td>
-                                <td>Dec 24, 10:00 AM</td>
-                                <td><span class="status-pill accepted">Accepted</span></td>
-                            </tr>
-                            <tr>
-                                <td>@sarah_j</td>
-                                <td>Spanish 101</td>
-                                <td>Dec 26, 02:00 PM</td>
-                                <td><span class="status-pill pending">Pending</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="card">
-                    <h3>My Skill Library</h3>
-                    <p style="font-size: 0.8rem; color: var(--text-light);">TEACHING</p>
-                    <div class="tag-group">
-                        <span class="tag">Python</span><span class="tag">SQL Databases</span><span class="tag">Project Management</span>
-                    </div>
-                    <p style="font-size: 0.8rem; color: var(--text-light); margin-top: 15px;">LEARNING</p>
-                    <div class="tag-group">
-                        <span class="tag" style="background:#fff5f5; color:#c53030;">Acoustic Guitar</span>
-                        <span class="tag" style="background:#fff5f5; color:#c53030;">Public Speaking</span>
-                    </div>
-                </div>
+        <div class="right-col">
+          <div class="card">
+            <h3>Recent Reviews</h3>
+            <div class="review-block">
+              <div class="rev-header">
+                <span class="rev-user">@anna_codes</span>
+                <span class="rev-stars">★★★★★</span>
+              </div>
+              <div class="rev-text">
+                "John is a patient teacher. His explanation of Python loops was
+                great!"
+              </div>
             </div>
 
-            <div class="right-col">
-                <div class="card">
-                    <h3>Recent Reviews</h3>
-                    <div class="review-block">
-                        <div class="rev-header">
-                            <span class="rev-user">@anna_codes</span>
-                            <span class="rev-stars">★★★★★</span>
-                        </div>
-                        <div class="rev-text">"John is a patient teacher. His explanation of Python loops was great!"</div>
-                    </div>
-
-                    <div class="review-block">
-                        <div class="rev-header">
-                            <span class="rev-user">@dev_mark</span>
-                            <span class="rev-stars">★★★★☆</span>
-                        </div>
-                        <div class="rev-text">"Very knowledgeable about database normalization. Efficient session."</div>
-                    </div>
-
-                    <div class="review-block">
-                        <div class="rev-header">
-                            <span class="rev-user">@lily_translator</span>
-                            <span class="rev-stars">★★★★★</span>
-                        </div>
-                        <div class="rev-text">"Fixed my bugs in 10 minutes. Absolute life saver!"</div>
-                    </div>
-
-                    <button style="width: 100%; padding: 10px; margin-top: 15px; border: 1px solid #edf2f7; background: #f7fafc; cursor: pointer; border-radius: 6px;">
-                        View All Reviews
-                    </button>
-                </div>
+            <div class="review-block">
+              <div class="rev-header">
+                <span class="rev-user">@dev_mark</span>
+                <span class="rev-stars">★★★★☆</span>
+              </div>
+              <div class="rev-text">
+                "Very knowledgeable about database normalization. Efficient
+                session."
+              </div>
             </div>
+
+            <div class="review-block">
+              <div class="rev-header">
+                <span class="rev-user">@lily_translator</span>
+                <span class="rev-stars">★★★★★</span>
+              </div>
+              <div class="rev-text">
+                "Fixed my bugs in 10 minutes. Absolute life saver!"
+              </div>
+            </div>
+
+            <button
+              style="
+                width: 100%;
+                padding: 10px;
+                margin-top: 15px;
+                border: 1px solid #edf2f7;
+                background: #f7fafc;
+                cursor: pointer;
+                border-radius: 6px;
+              "
+            >
+              View All Reviews
+            </button>
+          </div>
         </div>
+      </div>
     </main>
-</body>
+  </body>
 </html>

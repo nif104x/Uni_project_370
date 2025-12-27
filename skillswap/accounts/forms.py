@@ -48,4 +48,37 @@ class login_form(forms.Form):
     )
 
 
+class user_bio(forms.Form):
+    bio = forms.CharField(
+        validators=[
+            validators.MaxLengthValidator(255)
+        ]
+    )
+
+class user_name(forms.Form):
+    name = forms.CharField(
+        validators=[
+            validators.MaxLengthValidator(255),
+            validators.MinLengthValidator(5),
+            only_letter
+        ]
+    )
+
+class user_email(forms.Form):
+    email = forms.EmailField(
+        max_length=255,
+    )
+
+class user_skill(forms.Form):
+    skill_id = forms.IntegerField()
+
+class user_password(forms.Form):
+    password = forms.CharField(
+        validators=[
+            validators.MaxLengthValidator(255),
+            validators.MinLengthValidator(8)
+        ]
+    )
+
+
 

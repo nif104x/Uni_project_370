@@ -1,97 +1,224 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Profile - SkillSwap</title>
-    <link rel="stylesheet" href=" {% static 'accounts/css/self_profile.css' %} ">
-</head>
-<body>
-
-<div class="container">
-    <div class="profile-card">
+    <link
+      rel="stylesheet"
+      href=" {% static 'accounts/css/self_profile.css' %} "
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="profile-card">
         <div class="user-main">
-            <div class="avatar-upload">
-                JD
-                <div class="edit-badge">Change</div>
-            </div>
-            <div class="user-details">
-                <h1>John Doe <span class="account-status">Active</span></h1>
-                <p><strong>@johndoe123</strong> (Personal Account)</p>
-                <p>Email: john.doe@example.com</p>
-                <button class="btn-edit" style="margin-top: 10px;">Edit Basic Info</button>
-            </div>
+          <div class="avatar-upload">
+            {{profile.name|first|upper}}
+            <div class="edit-badge">Change</div>
+          </div>
+          <div class="user-details">
+            <h1> {{profile.name}} <span class="account-status">Active</span></h1>
+            <p><strong>@{{username}}</strong> (Personal Account)</p>
+            <p>Email: {{profile.email}}</p>
+            <button class="btn-edit" style="margin-top: 10px">
+              logout
+            </button>
+          </div>
         </div>
-        <div class="rating-box" style="text-align: right;">
-            <div style="font-size: 24px; font-weight: bold;">⭐ 4.8</div>
-            <div style="font-size: 12px; color: var(--text-light);">Average Rating</div>
+        <div class="rating-box" style="text-align: right">
+          <div style="font-size: 24px; font-weight: bold">⭐ {{profile.rating}}</div>
+          <div style="font-size: 12px; color: var(--text-light)">
+            Average Rating
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="wallet-bar">
+      <div class="wallet-bar">
         <div class="wallet-item">
-            <span>AVAILABLE CREDITS</span>
-            <strong>50 Credits</strong>
+          <span>AVAILABLE CREDITS</span>
+          <strong>{{profile.credits}} Credits</strong>
         </div>
         <div class="wallet-item">
-            <span>EXPERIENCE LEVEL</span>
-            <strong>Level 5 (Expert)</strong>
+          <span>EXPERIENCE LEVEL</span>
+          <strong>Level {{profile.experience}} (Expert)</strong>
         </div>
         <div class="wallet-item">
-            <span>JOINED DATE</span>
-            <strong>Oct 2023</strong>
+          <span>JOINED DATE</span>
+          <strong>{{profile.join|date:"F j, Y"}}</strong>
         </div>
-    </div>
+      </div>
 
-    <div class="profile-grid">
+      <div class="profile-grid">
         <div class="left-col">
-            <div class="section-card" style="margin-bottom: 24px;">
-                <div class="section-header">
-                    <h3>About Me</h3>
-                    <button class="btn-edit">Edit Bio</button>
-                </div>
-                <p style="line-height: 1.6; color: #4a5568;">
-                    I am a full-stack developer interested in teaching Python and React. 
-                    In my free time, I'm looking to learn Jazz Guitar and Spanish.
-                </p>
+          <div class="section-card" style="margin-bottom: 24px">
+            <div class="section-header">
+              <h3>About Me</h3>
+            </div>
+            <p style="line-height: 1.6; color: #4a5568">
+              {{profile.bio}}
+            </p>
+
+            {% if error %}
+            <p>Can't take the bio. Please try again.</p>
+            {% endif %}
+
+            <form action="" method ="POST">
+              {% csrf_token %}
+              <input
+              name = "bio"
+              class="btn-edit"
+              type="text"
+              style="width: 350px; height:100px"
+              placeholder="Enter new bio"/> <br>
+              <button class="btn-edit" name = "edit-bio" type="submit">Edit Bio</button>
+            </form>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header">
+              <h3>My Skills Library</h3>
             </div>
 
-            <div class="section-card">
-                <div class="section-header">
-                    <h3>My Skills Library</h3>
-                    <button class="btn-edit">+ Add New Skill</button>
-                </div>
-                
-                <h4 style="font-size: 14px; color: var(--text-light);">TEACHING</h4>
-                <div class="skill-list" style="margin-bottom: 20px;">
-                    <div class="skill-tag">Python <span class="remove-skill">×</span></div>
-                    <div class="skill-tag">MySQL <span class="remove-skill">×</span></div>
-                </div>
-
-                <h4 style="font-size: 14px; color: var(--text-light);">LEARNING</h4>
-                <div class="skill-list">
-                    <div class="skill-tag" style="background: #fff4e6; color: #d9480f;">Guitar <span class="remove-skill">×</span></div>
-                    <div class="skill-tag" style="background: #fff4e6; color: #d9480f;">Spanish <span class="remove-skill">×</span></div>
-                </div>
+            <h4 style="font-size: 14px; color: var(--text-light)">TEACHING</h4>
+            <div class="skill-list" style="margin-bottom: 20px">
+              {% for skill  in profile.teaching %}
+              <div class="skill-tag">
+                {{skill}} <span class="remove-skill">×</span>
+              </div>
+              {% endfor %}
+              <div>
+                {% if error %}
+                <p>Invalid Skill ID</p>
+                {% endif %}
+                <form action="" method="POST">
+                  {% csrf_token %}
+                  <input
+                  name='skill_id'
+                  class="btn-edit"
+                  type="text"
+                  style="width: 55px; height:15px"
+                  placeholder="skill_id"/>
+                  <button name="teach" class="btn-edit">+ Add</button>
+                </form>
+              </div>
             </div>
+
+            <h4 style="font-size: 14px; color: var(--text-light)">LEARNING</h4>
+            <div class="skill-list">
+              {% for skill in profile.learning %}
+              <div
+                class="skill-tag"
+                style="background: #fff4e6; color: #d9480f">
+                {{skill}} <span class="remove-skill">×</span>
+              </div>
+              {% endfor %}
+              <div>
+                {% if error %}
+                <p style="color:red;">Invalid Skill ID</p>
+                {% endif %}
+                <form action="" method="POST">
+                  {% csrf_token %}
+                  <input
+                  name='skill_id'
+                  class="btn-edit"
+                  type="text"
+                  style="width: 55px; height:15px"
+                  placeholder="skill_id"/>
+                  <button name="learn" class="btn-edit">+ Add</button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="right-col">
-            <div class="section-card">
-                <h3>Account Security</h3>
-                <div style="margin-top: 15px;">
-                    <p style="font-size: 14px;">Password: ••••••••••••</p>
-                    <button class="btn-edit" style="width: 100%;">Change Password</button>
-                </div>
-                <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-                <button style="width: 100%; padding: 10px; background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e; border-radius: 6px; cursor: pointer;">
-                    Deactivate Account
+          <div class="section-card">
+            <h3>Edit Basic Info</h3>
+            <div style="margin-top: 15px">
+              {% if error %}
+                <p style="color:red;">Invalid Email</p>
+              {% endif %}
+              <form action="" method="POST">
+                {% csrf_token %}
+                <input
+                  name = 'email'
+                  class="btn-edit"
+                  type="text"
+                  placeholder="Email: {{profile.email}}"
+                  style="width: 350px"
+                />
+                <button name="u_email" class="btn-edit" style="width: 100%">
+                  Change Email
                 </button>
+              </form>
             </div>
+            <h3>Account Security</h3>
+            <div style="margin-top: 15px">
+              {% if error %}
+                <p style="color:red;">Password criteria not matched!</p>
+              {% endif %}
+              <form action="" method="POST">
+                {% csrf_token %}
+                <input
+                  name='password'
+                  class="btn-edit"
+                  type="text"
+                  placeholder="Password: ••••••••••••"
+                  style="width: 350px"/>
+                <button name="u_password" class="btn-edit" style="width: 100%">
+                  Change Password
+                </button>
+              </form>
+            </div>
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee" />
+            <button
+              style="
+                width: 100%;
+                padding: 10px;
+                background: #fff1f0;
+                color: #cf1322;
+                border: 1px solid #ffa39e;
+                border-radius: 6px;
+                cursor: pointer;">
+              Delete Account
+            </button>
+          </div>
         </div>
+      </div>
+      <div>
+        <table style="width: 100%; border-collapse: collapse; font-family: sans-serif; margin-top: 20px;">
+            <thead>
+                <tr style="background-color: #f2f2f2; border-bottom: 2px solid #ddd;">
+                    <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">ID</th>
+                    <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Skill Name</th>
+                    <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in skill %}
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td style="padding: 12px; border: 1px solid #ddd; color: #666;">
+                        {{ s.id }}
+                    </td>
+                    <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold; color: #333;">
+                        {{ s.skill_name }}
+                    </td>
+                    <td style="padding: 12px; border: 1px solid #ddd; color: #555;">
+                        {{ s.desc }}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" style="padding: 20px; text-align: center; color: #999; font-style: italic;">
+                        No skills available in the database.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
     </div>
-</div>
-
-</body>
+  </body>
 </html>

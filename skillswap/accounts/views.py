@@ -63,9 +63,13 @@ def dashboard(request):
     if not username:
         return redirect('/account/login/')
     
-    profile = get_user_full_profile(username)
+    skill = request.GET.get('q')
+    if skill:
+        profiles = search_skills(skill)
+        return render(request, 'skillEngine/profile_grid.html', {'profiles':profiles})
 
-    return render(request, 'accounts/dashboard.html', {'profile':profile})
+    profile = get_user_full_profile(username)
+    return render(request, 'accounts/dashboard.html', {'profile':profile, 'username':username})
 
 
 
@@ -119,8 +123,6 @@ def self_profile(request):
 
 
 
-
-#PUBLIC VIEW PROFILE
-
-def profile(request):
-    return render(request, 'accounts/profile.html')
+def get_profile(request, username):
+    profile = db_get_profile(username)
+    return render(request,'accounts/profile.html', {'profile':profile, 'username':username})

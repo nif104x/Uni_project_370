@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Find Mentors | SkillSwap</title>
+    <link
+      rel="stylesheet"
+      href=" {% static 'skillEngine/css/profile_grid.css' %} "
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header class="search-header">
+        <h1>Discover Skills</h1>
+        <p>Click on a card to view the full profile and connect.</p>
+      </header>
+
+      <div class="profile-grid">
+        {% for p in profiles %}
+            <div class="profile-card">
+            <div class="card-header">
+                <div class="avatar">{{p.1|first|upper}}</div>
+                <div class="rating">⭐ {{p.4}}</div>
+            </div>
+
+            <div class="card-body">
+                <h2 class="username">@{{p.0}}</h2>
+                <p class="skill-label">Top Skill</p>
+                <p class="skill-name">{{p.2}}</p>
+
+                <div class="exp-level">
+                <span>Experience Level:</span>
+                <strong>Level {{p.3}}</strong>
+                </div>
+            </div>
+            <a href="{% url 'profile_detail' p.0 %}" class="view-btn">View Profile</a>
+            </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

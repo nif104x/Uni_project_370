@@ -14,11 +14,11 @@
     <nav>
       <div class="logo">SkillSwap</div>
       <ul>
-        <li class="active">Dashboard</li>
+        <li class='active'><a style="text-decoration:none; color:white;" href="{% url 'dashboard' %}">Dashboard</a></li>
         <li>Connections</li>
         <li>Messages</li>
         <li>Session History</li>
-        <li>My Profile</li>
+        <li><a style="text-decoration:none; color:white;" href="{% url 'self_profile' %}">My Profile</a></li>
       </ul>
     </nav>
 
@@ -27,14 +27,14 @@
         <h1>Overview</h1>
         <div class="search-engine-box">
           <form
-            action="/discovery/search/"
+            action=""
             method="GET"
             style="display: flex; gap: 10px"
           >
             <input
               type="text"
               name="q"
-              placeholder="Find a mentor or skill..."
+              placeholder="Find a skill..."
               style="
                 padding: 10px 20px;
                 border-radius: 20px;
@@ -67,22 +67,22 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
           "
         >
-          <strong>John Doe</strong> <small>(@johndoe)</small>
+          <strong>{{profile.name}}</strong> <small>(@{{username}})</small>
         </div>
       </div>
 
       <div class="stats-grid">
         <div class="stat-card">
           <small>Total Credits</small>
-          <div>50</div>
+          <div>{{profile.credits}}</div>
         </div>
         <div class="stat-card">
           <small>Average Rating</small>
-          <div>4.8 ⭐</div>
+          <div>{{profile.rating}} ⭐</div>
         </div>
         <div class="stat-card">
           <small>Experience</small>
-          <div>Level 5</div>
+          <div>Level {{profile.experience}}</div>
         </div>
         <div class="stat-card">
           <small>Status</small>
@@ -124,9 +124,9 @@
             <h3>My Skill Library</h3>
             <p style="font-size: 0.8rem; color: var(--text-light)">TEACHING</p>
             <div class="tag-group">
-              <span class="tag">Python</span
-              ><span class="tag">SQL Databases</span
-              ><span class="tag">Project Management</span>
+              {% for skill in profile.teaching %}
+              <span class="tag">{{skill}}</span>
+              {% endfor %}
             </div>
             <p
               style="
@@ -138,12 +138,10 @@
               LEARNING
             </p>
             <div class="tag-group">
+              {% for skill in profile.learning %}
               <span class="tag" style="background: #fff5f5; color: #c53030"
-                >Acoustic Guitar</span
-              >
-              <span class="tag" style="background: #fff5f5; color: #c53030"
-                >Public Speaking</span
-              >
+                >{{skill}}</span>
+              {% endfor %}
             </div>
           </div>
         </div>

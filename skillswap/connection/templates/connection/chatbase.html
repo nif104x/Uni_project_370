@@ -2,29 +2,71 @@
 {% load static %}
 <html>
 <head>
-    <link rel="stylesheet" href=" {% static 'connection/css/chat.css' %} ">
+    <link rel="stylesheet" href="{% static 'connection/css/chat.css' %}">
+    <link rel="icon" href="data:,">
 </head>
 <body>
-    <div class="messenger-wrapper">
-        <div class="convo-sidebar">
-            <h3 style="padding: 15px;">Messages</h3>
-            <a href="/chat/conv101/" class="convo-item active">
-                <strong>John Doe</strong>
-                <p style="font-size: 0.8rem; margin: 0;">Python Swap</p>
-            </a>
-            <a href="/chat/conv102/" class="convo-item">
-                <strong>Jane Smith</strong>
-                <p style="font-size: 0.8rem; margin: 0;">Guitar Lesson</p>
-            </a>
-        </div>
+    <nav>
+        <div class="logo">SkillSwap</div>
+        <ul>
+            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            <li><a href="#">Connections</a></li>
+            <li class="active"><a href="#">Messages</a></li>
+            <li><a href="#">Session History</a></li>
+            <li><a href="{% url 'self_profile' %}">My Profile</a></li>
+        </ul>
+    </nav>
 
-        <div class="chat-window">
-            {% block chat_content %}
-            <div style="text-align: center; margin-top: 20%; color: #888;">
-                <h3>Select a conversation to start chatting</h3>
+    <div class="chat-container">
+        
+        <aside class="friends-list">
+            <div class="list-header">
+                <h3>Messages</h3>
+                <div class="search-box">
+                    <input type="text" placeholder="Search friends...">
+                </div>
             </div>
-            {% endblock %}
-        </div>
+            <div class="contacts">
+                {% for username in requesters %}
+                    <div class="contact-card active">
+                        <div class="avatar">SJ</div>
+                        <div class="contact-info">
+                            <p class="contact-name">{{username}}</p>
+                            <p class="last-msg">Sent you a request...</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </aside>
+
+        <main class="chat-window">
+            <div class="chat-header">
+                <div class="header-info">
+                    <strong>Sarah Jane</strong>
+                    <span>Online</span>
+                </div>
+            </div>
+
+            <div class="message-container">
+                <div class="message incoming">
+                    <div class="bubble">Hi! I saw you are teaching Python. Can you help me?</div>
+                    <span class="timestamp">10:30 AM</span>
+                </div>
+
+                <div class="message outgoing">
+                    <div class="bubble">Of course! What specifically do you want to learn?</div>
+                    <span class="timestamp">10:32 AM</span>
+                </div>
+            </div>
+
+            <form class="chat-input-area" method="POST">
+                {% csrf_token %}
+                <input type="text" name="message" placeholder="Type your message here..." required>
+                <button type="submit">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                </button>
+            </form>
+        </main>
     </div>
 </body>
 </html>

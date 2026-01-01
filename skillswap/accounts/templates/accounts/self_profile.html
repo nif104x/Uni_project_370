@@ -14,11 +14,11 @@
     <nav>
       <div class="logo">SkillSwap</div>
       <ul>
-        <li><a style="text-decoration:none; color:white;" href="{% url 'dashboard' %}">Dashboard</a></li>
-        <li>Connections</li>
-        <li>Messages</li>
-        <li>Session History</li>
-        <li class='active'><a style="text-decoration:none; color:white;" href="{% url 'self_profile' %}">My Profile</a></li>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="#">Connections</a></li>
+        <li class="active"><a href="#">Messages</a></li>
+        <li><a href="#">Session History</a></li>
+        <li><a href="{% url 'self_profile' %}">My Profile</a></li>
       </ul>
     </nav>
     <main>
@@ -30,16 +30,18 @@
               <div class="edit-badge">Change</div>
             </div>
             <div class="user-details">
-              <h1> {{profile.name}} <span class="account-status">Active</span></h1>
+              <h1>
+                {{profile.name}} <span class="account-status">Active</span>
+              </h1>
               <p><strong>@{{username}}</strong> (Personal Account)</p>
               <p>Email: {{profile.email}}</p>
-              <button class="btn-edit" style="margin-top: 10px">
-                logout
-              </button>
+              <button class="btn-edit" style="margin-top: 10px">logout</button>
             </div>
           </div>
           <div class="rating-box" style="text-align: right">
-            <div style="font-size: 24px; font-weight: bold">⭐ {{profile.rating}}</div>
+            <div style="font-size: 24px; font-weight: bold">
+              ⭐ {{profile.rating}}
+            </div>
             <div style="font-size: 12px; color: var(--text-light)">
               Average Rating
             </div>
@@ -67,23 +69,25 @@
               <div class="section-header">
                 <h3>About Me</h3>
               </div>
-              <p style="line-height: 1.6; color: #4a5568">
-                {{profile.bio}}
-              </p>
+              <p style="line-height: 1.6; color: #4a5568">{{profile.bio}}</p>
 
               {% if error %}
               <p>Can't take the bio. Please try again.</p>
               {% endif %}
 
-              <form action="" method ="POST">
+              <form action="" method="POST">
                 {% csrf_token %}
                 <input
-                name = "bio"
-                class="btn-edit"
-                type="text"
-                style="width: 350px; height:100px"
-                placeholder="Enter new bio"/> <br>
-                <button class="btn-edit" name = "edit-bio" type="submit">Edit Bio</button>
+                  name="bio"
+                  class="btn-edit"
+                  type="text"
+                  style="width: 350px; height: 100px"
+                  placeholder="Enter new bio"
+                />
+                <br />
+                <button class="btn-edit" name="edit-bio" type="submit">
+                  Edit Bio
+                </button>
               </form>
             </div>
 
@@ -92,9 +96,11 @@
                 <h3>My Skills Library</h3>
               </div>
 
-              <h4 style="font-size: 14px; color: var(--text-light)">TEACHING</h4>
+              <h4 style="font-size: 14px; color: var(--text-light)">
+                TEACHING
+              </h4>
               <div class="skill-list" style="margin-bottom: 20px">
-                {% for skill  in profile.teaching %}
+                {% for skill in profile.teaching %}
                 <div class="skill-tag">
                   {{skill}} <span class="remove-skill">×</span>
                 </div>
@@ -106,37 +112,42 @@
                   <form action="" method="POST">
                     {% csrf_token %}
                     <input
-                    name='skill_id'
-                    class="btn-edit"
-                    type="text"
-                    style="width: 55px; height:15px"
-                    placeholder="skill_id"/>
+                      name="skill_id"
+                      class="btn-edit"
+                      type="text"
+                      style="width: 55px; height: 15px"
+                      placeholder="skill_id"
+                    />
                     <button name="teach" class="btn-edit">+ Add</button>
                   </form>
                 </div>
               </div>
 
-              <h4 style="font-size: 14px; color: var(--text-light)">LEARNING</h4>
+              <h4 style="font-size: 14px; color: var(--text-light)">
+                LEARNING
+              </h4>
               <div class="skill-list">
                 {% for skill in profile.learning %}
                 <div
                   class="skill-tag"
-                  style="background: #fff4e6; color: #d9480f">
+                  style="background: #fff4e6; color: #d9480f"
+                >
                   {{skill}} <span class="remove-skill">×</span>
                 </div>
                 {% endfor %}
                 <div>
                   {% if error %}
-                  <p style="color:red;">Invalid Skill ID</p>
+                  <p style="color: red">Invalid Skill ID</p>
                   {% endif %}
                   <form action="" method="POST">
                     {% csrf_token %}
                     <input
-                    name='skill_id'
-                    class="btn-edit"
-                    type="text"
-                    style="width: 55px; height:15px"
-                    placeholder="skill_id"/>
+                      name="skill_id"
+                      class="btn-edit"
+                      type="text"
+                      style="width: 55px; height: 15px"
+                      placeholder="skill_id"
+                    />
                     <button name="learn" class="btn-edit">+ Add</button>
                   </form>
                 </div>
@@ -149,12 +160,12 @@
               <h3>Edit Basic Info</h3>
               <div style="margin-top: 15px">
                 {% if error %}
-                  <p style="color:red;">Invalid Email</p>
+                <p style="color: red">Invalid Email</p>
                 {% endif %}
                 <form action="" method="POST">
                   {% csrf_token %}
                   <input
-                    name = 'email'
+                    name="email"
                     class="btn-edit"
                     type="text"
                     placeholder="Email: {{profile.email}}"
@@ -168,22 +179,29 @@
               <h3>Account Security</h3>
               <div style="margin-top: 15px">
                 {% if error %}
-                  <p style="color:red;">Password criteria not matched!</p>
+                <p style="color: red">Password criteria not matched!</p>
                 {% endif %}
                 <form action="" method="POST">
                   {% csrf_token %}
                   <input
-                    name='password'
+                    name="password"
                     class="btn-edit"
                     type="text"
                     placeholder="Password: ••••••••••••"
-                    style="width: 350px"/>
-                  <button name="u_password" class="btn-edit" style="width: 100%">
+                    style="width: 350px"
+                  />
+                  <button
+                    name="u_password"
+                    class="btn-edit"
+                    style="width: 100%"
+                  >
                     Change Password
                   </button>
                 </form>
               </div>
-              <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee" />
+              <hr
+                style="margin: 20px 0; border: 0; border-top: 1px solid #eee"
+              />
               <button
                 style="
                   width: 100%;
@@ -192,42 +210,92 @@
                   color: #cf1322;
                   border: 1px solid #ffa39e;
                   border-radius: 6px;
-                  cursor: pointer;">
+                  cursor: pointer;
+                "
+              >
                 Delete Account
               </button>
             </div>
           </div>
         </div>
         <div>
-          <table style="width: 100%; border-collapse: collapse; font-family: sans-serif; margin-top: 20px;">
-              <thead>
-                  <tr style="background-color: #f2f2f2; border-bottom: 2px solid #ddd;">
-                      <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">ID</th>
-                      <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Skill Name</th>
-                      <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Description</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for s in skill %}
-                  <tr style="border-bottom: 1px solid #ddd;">
-                      <td style="padding: 12px; border: 1px solid #ddd; color: #666;">
-                          {{ s.id }}
-                      </td>
-                      <td style="padding: 12px; border: 1px solid #ddd; font-weight: bold; color: #333;">
-                          {{ s.skill_name }}
-                      </td>
-                      <td style="padding: 12px; border: 1px solid #ddd; color: #555;">
-                          {{ s.desc }}
-                      </td>
-                  </tr>
-                  {% empty %}
-                  <tr>
-                      <td colspan="3" style="padding: 20px; text-align: center; color: #999; font-style: italic;">
-                          No skills available in the database.
-                      </td>
-                  </tr>
-                  {% endfor %}
-              </tbody>
+          <table
+            style="
+              width: 100%;
+              border-collapse: collapse;
+              font-family: sans-serif;
+              margin-top: 20px;
+            "
+          >
+            <thead>
+              <tr
+                style="background-color: #f2f2f2; border-bottom: 2px solid #ddd"
+              >
+                <th
+                  style="
+                    padding: 12px;
+                    text-align: left;
+                    border: 1px solid #ddd;
+                  "
+                >
+                  ID
+                </th>
+                <th
+                  style="
+                    padding: 12px;
+                    text-align: left;
+                    border: 1px solid #ddd;
+                  "
+                >
+                  Skill Name
+                </th>
+                <th
+                  style="
+                    padding: 12px;
+                    text-align: left;
+                    border: 1px solid #ddd;
+                  "
+                >
+                  Description
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for s in skill %}
+              <tr style="border-bottom: 1px solid #ddd">
+                <td style="padding: 12px; border: 1px solid #ddd; color: #666">
+                  {{ s.id }}
+                </td>
+                <td
+                  style="
+                    padding: 12px;
+                    border: 1px solid #ddd;
+                    font-weight: bold;
+                    color: #333;
+                  "
+                >
+                  {{ s.skill_name }}
+                </td>
+                <td style="padding: 12px; border: 1px solid #ddd; color: #555">
+                  {{ s.desc }}
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td
+                  colspan="3"
+                  style="
+                    padding: 20px;
+                    text-align: center;
+                    color: #999;
+                    font-style: italic;
+                  "
+                >
+                  No skills available in the database.
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
           </table>
         </div>
       </div>

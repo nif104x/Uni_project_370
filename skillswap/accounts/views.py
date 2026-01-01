@@ -126,3 +126,4 @@ def self_profile(request):
 def get_profile(request, username):
     profile = db_get_profile(username)
     return render(request,'accounts/profile.html', {'profile':profile, 'username':username})
+

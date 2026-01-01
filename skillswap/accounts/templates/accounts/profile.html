@@ -1,67 +1,78 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Profile - SkillSwap</title>
-    <link rel="stylesheet" href=" {% static 'accounts/css/profile.css' %} ">
-
-</head>
-<body>
-
-<div class="profile-container">
-    <div class="profile-header">
+    <link rel="stylesheet" href=" {% static 'accounts/css/profile.css' %} " />
+  </head>
+  <body>
+    <div class="profile-container">
+      <div class="profile-header">
         <div class="avatar">{{profile.name|first|upper}}</div>
         <div class="user-info">
-            <h1>{{profile.name}}</h1> <p>@{{username}} • Member since {{profile.join|date:"Y"}}</p> <p><em>"{{profile.bio}}"</em></p> <div class="badge-group">
-                <span class="status-badge">Level {{profile.experience}} Mentor</span> <button class="btn-connect">Request Connection</button>
-            </div>
+          <h1>{{profile.name}}</h1>
+          <p>@{{username}} • Member since {{profile.join|date:"Y"}}</p>
+          <p><em>"{{profile.bio}}"</em></p>
+          <div class="badge-group">
+            <span class="status-badge"
+              >Level {{profile.experience}} Mentor</span
+            >
+            <a href="{% url 'send_request' target_user=username %}" class="btn-connect" style="text-decoration: none;">
+            Request Connection
+            </a>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <div class="grid">
+      <div class="grid">
         <div class="card">
-            <h3 style="color: var(--teach-color);">Skills I Teach</h3>
-            {% for skill in profile.teaching %}
-                <div class="skill-item">
-                    <span>{{skill}}</span>
-                    <span class="proficiency">Expert</span>
-                </div>
-            {% endfor %}
+          <h3 style="color: var(--teach-color)">Skills I Teach</h3>
+          {% for skill in profile.teaching %}
+          <div class="skill-item">
+            <span>{{skill}}</span>
+            <span class="proficiency">Expert</span>
+          </div>
+          {% endfor %}
         </div>
 
         <div class="card">
-            <h3 style="color: var(--learn-color);">Skills I'm Learning</h3>
-            {% for skill in profile.learning %}
-                <div class="skill-item">
-                    <span>{{skill}}</span>
-                    <span class="proficiency">Beginner</span>
-                </div>
-            {% endfor %}
+          <h3 style="color: var(--learn-color)">Skills I'm Learning</h3>
+          {% for skill in profile.learning %}
+          <div class="skill-item">
+            <span>{{skill}}</span>
+            <span class="proficiency">Beginner</span>
+          </div>
+          {% endfor %}
         </div>
-    </div>
+      </div>
 
-    <div class="reviews-section">
+      <div class="reviews-section">
         <h3>Recent Reviews</h3>
-        
+
         <div class="review-card">
-            <div class="review-meta">
-                <span>Sarah Jenkins</span>
-                <span><span class="rating-star">★</span> 5.0</span>
-            </div>
-            <p>"John is an incredible teacher! He helped me understand MySQL joins in under 30 minutes."</p>
+          <div class="review-meta">
+            <span>Sarah Jenkins</span>
+            <span><span class="rating-star">★</span> 5.0</span>
+          </div>
+          <p>
+            "John is an incredible teacher! He helped me understand MySQL joins
+            in under 30 minutes."
+          </p>
         </div>
 
         <div class="review-card">
-            <div class="review-meta">
-                <span>Mike Ross</span>
-                <span><span class="rating-star">★</span> 4.5</span>
-            </div>
-            <p>"Very patient and knowledgeable. Highly recommended for coding help."</p>
+          <div class="review-meta">
+            <span>Mike Ross</span>
+            <span><span class="rating-star">★</span> 4.5</span>
+          </div>
+          <p>
+            "Very patient and knowledgeable. Highly recommended for coding
+            help."
+          </p>
         </div>
+      </div>
     </div>
-</div>
-
-</body>
+  </body>
 </html>

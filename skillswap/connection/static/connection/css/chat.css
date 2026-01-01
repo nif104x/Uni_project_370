@@ -1,88 +1,151 @@
-/* Container Layout */
-.messenger-wrapper {
+:root {
+    --sidebar: #1a202c;
+    --primary: #4c51bf;
+    --bg: #f7fafc;
+    --border: #e2e8f0;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
     display: flex;
-    height: 85vh;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    margin: 20px;
 }
 
-/* Left Sidebar */
-.convo-sidebar {
-    width: 300px;
-    border-right: 1px solid #eee;
-    background: #f9f9f9;
-    overflow-y: auto;
+/* Sidebar Container */
+nav {
+    width: 260px;
+    background: #1a202c; /* The dark blue from your design */
+    height: 100vh;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
 }
 
-.convo-item {
-    display: block;
-    padding: 15px;
-    color: #333;
+/* Logo Section */
+nav .logo {
+    padding: 30px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #a3b1ff;
+    border-bottom: 1px solid #2d3748;
+}
+
+/* Remove Bullets and Padding from UL */
+nav ul {
+    list-style: none; /* This removes the bullets */
+    padding: 20px 0;
+    margin: 0;
+}
+
+/* Style the List Items */
+nav ul li {
+    transition: 0.3s;
+}
+
+/* Style the Links inside the LI */
+nav ul li a {
+    display: block; /* Makes the whole area clickable */
+    padding: 15px 30px;
+    color: #cbd5e0;
     text-decoration: none;
-    border-bottom: 1px solid #eee;
 }
 
-.convo-item:hover { background: #f0f0f0; }
-.convo-item.active { background: #e3f2fd; border-left: 4px solid #2196f3; }
+/* Hover State */
+nav ul li:hover {
+    background: #2d3748;
+}
 
-/* Right Chat Area */
+nav ul li:hover a {
+    color: white;
+}
+
+/* Active State (Blue Background) */
+nav ul li.active {
+    background: #4c51bf;
+    border-right: 4px solid #a3b1ff;
+}
+
+nav ul li.active a {
+    color: white;
+    font-weight: 600;
+}
+/* ... include your Nav CSS here ... */
+
+/* 2. Chat Container (Shifted right to make room for fixed nav) */
+.chat-container {
+    margin-left: 260px; /* Width of nav */
+    width: calc(100% - 260px);
+    height: 100vh;
+    display: flex;
+}
+
+/* 3. Friends List Column */
+.friends-list {
+    width: 350px;
+    background: white;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+}
+.list-header { padding: 20px; border-bottom: 1px solid var(--border); }
+.search-box input {
+    width: 100%; padding: 10px; border-radius: 8px; 
+    border: 1px solid var(--border); background: var(--bg);
+}
+.contacts { flex-grow: 1; overflow-y: auto; }
+.contact-card {
+    display: flex; padding: 15px 20px; gap: 15px;
+    cursor: pointer; border-bottom: 1px solid #f9f9f9;
+}
+.contact-card:hover { background: var(--bg); }
+.contact-card.active { background: #ebf4ff; border-left: 4px solid var(--primary); }
+.avatar {
+    width: 45px; height: 45px; background: var(--primary);
+    border-radius: 50%; color: white; display: flex;
+    align-items: center; justify-content: center; font-weight: bold;
+}
+
+/* 4. Chat Window Column */
 .chat-window {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    background: var(--bg);
+}
+.chat-header {
+    padding: 15px 25px; background: white;
+    border-bottom: 1px solid var(--border);
+}
+.message-container {
+    flex-grow: 1; padding: 25px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 20px;
 }
 
-.message-display {
-    flex-grow: 1;
-    padding: 20px;
-    overflow-y: auto;
-    background: #fff;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
 
-/* Chat Bubbles */
-.bubble {
-    max-width: 70%;
-    padding: 10px 15px;
-    border-radius: 15px;
-    font-size: 0.95rem;
-    line-height: 1.4;
-}
+/* 5. Bubbles - Left and Right Logic */
+.message { max-width: 65%; display: flex; flex-direction: column; }
+.incoming { align-self: flex-start; }
+.incoming .bubble { background: white; border-radius: 0 15px 15px 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 
-.sent {
-    align-self: flex-end;
-    background: #0084ff;
-    color: white;
-    border-bottom-right-radius: 2px;
-}
+.outgoing { align-self: flex-end; }
+.outgoing .bubble { background: var(--primary); color: white; border-radius: 15px 15px 0 15px; }
 
-.received {
-    align-self: flex-start;
-    background: #e4e6eb;
-    color: black;
-    border-bottom-left-radius: 2px;
-}
+.bubble { padding: 12px 18px; line-height: 1.5; font-size: 0.95rem; }
+.timestamp { font-size: 0.75rem; color: #a0aec0; margin-top: 5px; }
 
-/* Input Area */
-.message-input-area {
-    padding: 20px;
-    border-top: 1px solid #eee;
+/* 6. Input Area */
+.chat-input-area {
+    padding: 20px; background: white; border-top: 1px solid var(--border);
+    display: flex; gap: 15px;
 }
-
-.message-form {
-    display: flex;
-    gap: 10px;
+.chat-input-area input {
+    flex-grow: 1; padding: 12px 20px; border-radius: 25px;
+    border: 1px solid var(--border); outline: none;
 }
-
-.message-form input {
-    flex-grow: 1;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 25px;
-    outline: none;
+.chat-input-area button {
+    background: var(--primary); border: none; width: 45px; height: 45px;
+    border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center;
 }

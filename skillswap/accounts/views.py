@@ -127,3 +127,8 @@ def get_profile(request, username):
     profile = db_get_profile(username)
     return render(request,'accounts/profile.html', {'profile':profile, 'username':username})
 
+
+def remove_skill(request, skill):
+    username = request.session.get('username')
+    delete_skill(username, skill)
+    return redirect('self_profile')

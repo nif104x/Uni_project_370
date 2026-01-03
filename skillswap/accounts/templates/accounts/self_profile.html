@@ -15,7 +15,8 @@
       <div class="logo">SkillSwap</div>
       <ul>
         <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-        <li><a href="{% url 'chat' %}" style="text-decoration:none; color:white;">Connections</a></li>        <li><a href="#">Session History</a></li>
+        <li><a href="{% url 'chat' %}" style="text-decoration:none; color:white;">Connections</a></li>        
+        <li><a href="#">Session History</a></li>
         <li class="active"><a href="{% url 'self_profile' %}">My Profile</a></li>
       </ul>
     </nav>
@@ -33,7 +34,7 @@
               </h1>
               <p><strong>@{{username}}</strong> (Personal Account)</p>
               <p>Email: {{profile.email}}</p>
-              <button class="btn-edit" style="margin-top: 10px">logout</button>
+              <button class="btn-edit" style="margin-top: 10px"><a href="{% url 'login' %}" style="text-decoration: none">logout</a></button>
             </div>
           </div>
           <div class="rating-box" style="text-align: right">
@@ -100,7 +101,10 @@
               <div class="skill-list" style="margin-bottom: 20px">
                 {% for skill in profile.teaching %}
                 <div class="skill-tag">
-                  {{skill}} <span class="remove-skill">×</span>
+                  {{skill}} 
+                  <span class="remove-skill">
+                    <a href="{% url 'remove_skill' skill %}" style="text-decoration: none; color: #ff4d4d; margin-left: 8px; font-weight: bold; cursor: pointer;">×</a>
+                  </span>
                 </div>
                 {% endfor %}
                 <div>
@@ -128,9 +132,11 @@
                 {% for skill in profile.learning %}
                 <div
                   class="skill-tag"
-                  style="background: #fff4e6; color: #d9480f"
-                >
-                  {{skill}} <span class="remove-skill">×</span>
+                  style="background: #fff4e6; color: #d9480f">
+                  {{skill}} 
+                  <span class="remove-skill">
+                    <a href="{% url 'remove_skill' skill %}" style="text-decoration: none; color: #ff4d4d; margin-left: 8px; font-weight: bold; cursor: pointer;">×</a>
+                  </span>
                 </div>
                 {% endfor %}
                 <div>

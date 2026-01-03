@@ -200,6 +200,17 @@ def db_get_profile(username):
                 profile['learning'].append(skill_name)
                 
         return profile
+    
+
+def delete_skill(username, skill):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            DELETE FROM user_skills 
+            WHERE username = %s 
+            AND skill_id = (SELECT skill_id FROM skill WHERE skill_name = %s);
+            """, [username, skill]
+        )
 
 
 

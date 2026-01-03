@@ -1,72 +1,98 @@
 <!DOCTYPE html>
 {% load static %}
 <html>
-<head>
-    <link rel="stylesheet" href="{% static 'connection/css/chat.css' %}">
-    <link rel="icon" href="data:,">
-</head>
-<body>
+  <head>
+    <link rel="stylesheet" href="{% static 'connection/css/chat.css' %}" />
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
     <nav>
-        <div class="logo">SkillSwap</div>
-        <ul>
-            <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-            <li><a href="#">Connections</a></li>
-            <li class="active"><a href="#">Messages</a></li>
-            <li><a href="#">Session History</a></li>
-            <li><a href="{% url 'self_profile' %}">My Profile</a></li>
-        </ul>
+      <div class="logo">SkillSwap</div>
+      <ul>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li class="active"><a href="{% url 'chat' %}">Connections</a></li>
+        <li><a href="#">Session History</a></li>
+        <li><a href="{% url 'self_profile' %}">My Profile</a></li>
+      </ul>
     </nav>
 
     <div class="chat-container">
-        
-        <aside class="friends-list">
-            <div class="list-header">
-                <h3>Messages</h3>
-                <div class="search-box">
-                    <input type="text" placeholder="Search friends...">
-                </div>
+      <aside class="friends-list">
+        {% comment %} <div class="list-header">
+          <h3>Messages</h3>
+          <div class="search-box">
+            <input type="text" placeholder="Search friends..." />
+          </div>
+        </div> {% endcomment %}
+        <div class="contacts">
+          {% for username in requesters %}
+          <a
+            href="{% url 'load_conversation' username %}"
+            style="text-decoration: none; color: inherit; display: block"
+          >
+            <div class="contact-card active" style="cursor: pointer">
+              <div class="avatar">{{username|first|upper}}</div>
+              <div class="contact-info">
+                <p class="contact-name">{{ username }}</p>
+                <p class="last-msg">Sent you a request...</p>
+              </div>
             </div>
-            <div class="contacts">
-                {% for username in requesters %}
-                    <div class="contact-card active">
-                        <div class="avatar">SJ</div>
-                        <div class="contact-info">
-                            <p class="contact-name">{{username}}</p>
-                            <p class="last-msg">Sent you a request...</p>
-                        </div>
-                    </div>
-                {% endfor %}
+          </a>
+          {% endfor %}
+        </div>
+      </aside>
+
+      <main class="chat-window">
+        <div class="chat-header">
+          <div class="header-info">
+            {% if user2 %}
+                <strong>
+                    <a href="{% url 'profile_detail' user2 %}" style="text-decoration: none">
+                        {{ user2 }}
+                    </a>
+                </strong>
+                <span>(Online)</span>
+            {% else %}
+                <strong>No chat selected!</strong>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="message-container">
+        {% for con in convo %} 
+            
+            {% if con.0 != user1 %}
+            <div class="message incoming">
+                <div class="bubble">{{ con.1 }}</div>
+                <span class="timestamp">{{ con.2|date:"g:i A" }}</span>
             </div>
-        </aside>
+            {% endif %} 
 
-        <main class="chat-window">
-            <div class="chat-header">
-                <div class="header-info">
-                    <strong>Sarah Jane</strong>
-                    <span>Online</span>
-                </div>
+            {% if con.0 == user1 %}
+            <div class="message outgoing">
+                <div class="bubble">{{ con.1 }}</div>
+                <span class="timestamp">{{ con.2|date:"g:i A" }}</span>
             </div>
+            {% endif %} 
 
-            <div class="message-container">
-                <div class="message incoming">
-                    <div class="bubble">Hi! I saw you are teaching Python. Can you help me?</div>
-                    <span class="timestamp">10:30 AM</span>
-                </div>
+        {% endfor %}
+        </div>
 
-                <div class="message outgoing">
-                    <div class="bubble">Of course! What specifically do you want to learn?</div>
-                    <span class="timestamp">10:32 AM</span>
-                </div>
-            </div>
-
-            <form class="chat-input-area" method="POST">
-                {% csrf_token %}
-                <input type="text" name="message" placeholder="Type your message here..." required>
-                <button type="submit">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-                </button>
-            </form>
-        </main>
+        <form class="chat-input-area" method="POST">
+          {% csrf_token %}
+          <input
+            type="text"
+            name="message"
+            placeholder="Type your message here..."
+            required
+          />
+          <button type="submit">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+            </svg>
+          </button>
+        </form>
+      </main>
     </div>
-</body>
+  </body>
 </html>

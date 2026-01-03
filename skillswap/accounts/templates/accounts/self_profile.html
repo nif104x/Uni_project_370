@@ -15,10 +15,8 @@
       <div class="logo">SkillSwap</div>
       <ul>
         <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-        <li><a href="#">Connections</a></li>
-        <li class="active"><a href="#">Messages</a></li>
-        <li><a href="#">Session History</a></li>
-        <li><a href="{% url 'self_profile' %}">My Profile</a></li>
+        <li><a href="{% url 'chat' %}" style="text-decoration:none; color:white;">Connections</a></li>        <li><a href="#">Session History</a></li>
+        <li class="active"><a href="{% url 'self_profile' %}">My Profile</a></li>
       </ul>
     </nav>
     <main>

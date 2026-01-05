@@ -24,7 +24,7 @@ CREATE TABLE user (
 );
 
 
-CREATE TABLE admin (d
+CREATE TABLE admin (
     username VARCHAR(50) PRIMARY KEY,
     FOREIGN KEY (username) REFERENCES person(username)
 );
@@ -67,7 +67,6 @@ CREATE TABLE user_skills (
 
 
 
-
 CHAT:
 
 
@@ -98,33 +97,32 @@ CREATE TABLE chat (
 
 SESSION:
 
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS session;
 
 CREATE TABLE session (
     session_id VARCHAR(100) PRIMARY KEY,
-    teacher_username VARCHAR(50),
-    student_username VARCHAR(50),
-    skill_id INT,
-    credit_used INT DEFAULT 5, 
+    
+    -- We add CHARACTER SET and COLLATE to match your user table exactly
+    initiator_username VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+    partner_username VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+    
+    initiator_offered_skill_id INT, 
+    partner_offered_skill_id INT,   
+    
     schedule_time DATETIME,
-    status VARCHAR(50) DEFAULT 'pending', 
+    status ENUM('pending', 'accepted', 'completed', 'cancelled') DEFAULT 'pending',
     link TEXT,
-    FOREIGN KEY (teacher_username) REFERENCES user(username),
-    FOREIGN KEY (student_username) REFERENCES user(username),
-    FOREIGN KEY (skill_id) REFERENCES skill(skill_id)
-);
+    credit_used INT DEFAULT 5, 
+    
+    FOREIGN KEY (initiator_username) REFERENCES user(username),
+    FOREIGN KEY (partner_username) REFERENCES user(username),
+    FOREIGN KEY (initiator_offered_skill_id) REFERENCES skill(skill_id),
+    FOREIGN KEY (partner_offered_skill_id) REFERENCES skill(skill_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
-CREATE TABLE session_list (
-    session_id VARCHAR(100),
-    user_username VARCHAR(50),
-    session_time DATETIME,
-    session_status VARCHAR(50),
-    PRIMARY KEY (session_id, user_username),
-    FOREIGN KEY (session_id) REFERENCES session(session_id),
-    FOREIGN KEY (user_username) REFERENCES user(username)
-);
-
-
+SET FOREIGN_KEY_CHECKS = 1;
 
 
 REVIEW:
@@ -143,16 +141,6 @@ CREATE TABLE review (
     FOREIGN KEY (reviewer_username) REFERENCES user(username),
     FOREIGN KEY (reviewee_username) REFERENCES user(username)
 );
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -56,7 +56,7 @@ CREATE TABLE `chat` (
   KEY `sender_id` (`sender_id`),
   CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`conversation_id`) REFERENCES `conversation` (`conversation_id`),
   CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`sender_id`) REFERENCES `person` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,6 +65,7 @@ CREATE TABLE `chat` (
 
 LOCK TABLES `chat` WRITE;
 /*!40000 ALTER TABLE `chat` DISABLE KEYS */;
+INSERT INTO `chat` VALUES (1,'arvitexia#python_pro','arvitexia',NULL,'2026-01-03 14:44:50'),(2,'arvitexia#python_pro','arvitexia',NULL,'2026-01-03 14:45:33'),(3,'arvitexia#python_pro','python_pro',NULL,'2026-01-03 14:49:05'),(4,'arvitexia#python_pro','arvitexia','hello','2026-01-03 14:55:40'),(5,'arvitexia#python_pro','arvitexia','what is your name','2026-01-03 14:55:47'),(6,'arvitexia#python_pro','python_pro','my name is munia akter','2026-01-03 14:56:09'),(7,'arvitexia#python_pro','arvitexia','ow nice u xx?','2026-01-03 14:56:21'),(8,'arvitexia#python_pro','python_pro','haha guess','2026-01-03 14:56:35'),(9,'arvitexia#python_pro','arvitexia','bangladeshi?','2026-01-03 14:56:56'),(10,'arvitexia#python_pro','python_pro','guess?','2026-01-03 14:57:00'),(11,'arvitexia#python_pro','arvitexia','i cant','2026-01-03 14:57:07'),(12,'arvitexia#python_pro','python_pro','oh really','2026-01-03 14:57:12'),(13,'arvitexia#python_pro','arvitexia','wanna marry?','2026-01-03 14:57:32'),(14,'arvitexia#python_pro','python_pro','nigga i am xy','2026-01-03 15:00:01'),(15,'arvitexia#python_pro','arvitexia','oh no!','2026-01-03 15:00:07'),(16,'arvitexia#python_pro','arvitexia','oh really','2026-01-03 15:01:19'),(17,'arvitexia#python_pro','python_pro','hello','2026-01-03 15:14:03'),(18,'arvitexia#python_pro','arvitexia','dfsddfdf','2026-01-03 15:20:33'),(19,'arvitexia#python_pro','arvitexia','dude','2026-01-03 15:21:07'),(20,'arvitexia#python_pro','python_pro','ha','2026-01-03 15:21:17'),(21,'arvitexia#python_pro','python_pro','i am not doing ','2026-01-03 15:21:48'),(22,'arvitexia#python_pro','arvitexia','oh really?????','2026-01-03 15:21:59'),(23,'arvitexia#python_pro','python_pro','tai naki','2026-01-03 15:26:01'),(24,'arvitexia#python_pro','arvitexia','ho bai','2026-01-03 15:26:06'),(25,'arvitexia#python_pro','python_pro','o','2026-01-03 15:26:12'),(26,'arvitexia#python_pro','arvitexia','hi','2026-01-04 13:23:45'),(27,'arvitexia#python_pro','arvitexia','hi buddy','2026-01-05 17:58:53');
 /*!40000 ALTER TABLE `chat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,7 +94,7 @@ CREATE TABLE `connection` (
 
 LOCK TABLES `connection` WRITE;
 /*!40000 ALTER TABLE `connection` DISABLE KEYS */;
-INSERT INTO `connection` VALUES ('chef_marcus','marketing_gal','pending','2023-10-15 02:00:00'),('data_wiz','python_pro','accepted','2023-10-05 03:15:00'),('guitar_hero','ux_sarah','accepted','2023-10-02 05:30:00'),('js_newbie','python_pro','pending','2023-10-16 13:10:00'),('marketing_gal','js_newbie','accepted','2023-10-12 10:45:00'),('photo_phi','yoga_guru','pending','2023-10-17 06:00:00'),('python_pro','ux_sarah','accepted','2023-10-01 04:00:00'),('yoga_guru','fitness_fan','accepted','2023-10-10 08:20:00');
+INSERT INTO `connection` VALUES ('arvitexia','data_wiz','pending','2026-01-01 17:12:23'),('arvitexia','guitar_hero','pending','2026-01-03 15:48:51'),('arvitexia','python_pro','pending','2026-01-01 17:08:11'),('chef_marcus','marketing_gal','pending','2023-10-15 02:00:00'),('data_wiz','python_pro','accepted','2023-10-05 03:15:00'),('guitar_hero','arvitexia','pending','2026-01-01 17:51:08'),('guitar_hero','ux_sarah','accepted','2023-10-02 05:30:00'),('js_newbie','python_pro','pending','2023-10-16 13:10:00'),('marketing_gal','js_newbie','accepted','2023-10-12 10:45:00'),('photo_phi','yoga_guru','pending','2023-10-17 06:00:00'),('python_pro','arvitexia','pending','2026-01-01 17:29:49'),('python_pro','guitar_hero','pending','2026-01-01 17:48:17'),('python_pro','ux_sarah','accepted','2023-10-01 04:00:00'),('yoga_guru','fitness_fan','accepted','2023-10-10 08:20:00');
 /*!40000 ALTER TABLE `connection` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,6 +123,7 @@ CREATE TABLE `conversation` (
 
 LOCK TABLES `conversation` WRITE;
 /*!40000 ALTER TABLE `conversation` DISABLE KEYS */;
+INSERT INTO `conversation` VALUES ('arvitexia#data_wiz','arvitexia','data_wiz'),('arvitexia#guitar_hero','arvitexia','guitar_hero'),('arvitexia#python_pro','arvitexia','python_pro');
 /*!40000 ALTER TABLE `conversation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,6 +175,7 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
+INSERT INTO `django_session` VALUES ('4wfsd5nh28msk97ka81m0y6xpcmce71o','eyJ1c2VybmFtZSI6InB5dGhvbl9wcm8ifQ:1vc2vV:llbCOXa_xQH03Fo00MymVrYyYPF3cGxpwHMcRNf9dCs','2026-01-17 14:48:21.238965'),('7utyeovkbd6g4c81vgsqgdqx5zk0sj4w','eyJ1c2VybmFtZSI6ImFydml0ZXhpYSJ9:1vY3K4:lOqrbDa4LgvPCTPrNRfIQ9shKsQq-I1YQoAwq-GGwSg','2026-01-06 14:25:12.295506'),('rgl0icufzylrtmm3nnflosgzkjowgq2q','eyJ1c2VybmFtZSI6ImFydml0ZXhpYSJ9:1vclTv:8mmrfO1SmyExcNd8fbngll0vzQgTcQe6X7yx7qY76Cg','2026-01-19 14:22:51.016080');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,7 +199,7 @@ CREATE TABLE `person` (
 
 LOCK TABLES `person` WRITE;
 /*!40000 ALTER TABLE `person` DISABLE KEYS */;
-INSERT INTO `person` VALUES ('arvitexia','12345678'),('chef_marcus','hash_pass_3'),('data_wiz','hash_pass_6'),('fitness_fan','hash_pass_5'),('guitar_hero','hash_pass_2'),('js_newbie','hash_pass_10'),('marketing_gal','hash_pass_8'),('nifx_12345','rebel@@3270x'),('photo_phi','hash_pass_7'),('python_pro','hash_pass_1'),('ux_sarah','hash_pass_4'),('yoga_guru','hash_pass_9');
+INSERT INTO `person` VALUES ('arvitexia','12345678'),('chef_marcus','hash_pass_3'),('data_wiz','hash_pass_6'),('fitness_fan','hash_pass_5'),('guitar_hero','hash_pass_2'),('js_newbie','hash_pass_10'),('marketing_gal','hash_pass_8'),('nif rebel','12345678'),('nifx_12345','rebel@@3270x'),('noobmaster69','12345678'),('photo_phi','hash_pass_7'),('python_pro','hash_pass_1'),('ux_sarah','hash_pass_4'),('yoga_guru','hash_pass_9');
 /*!40000 ALTER TABLE `person` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,21 +245,24 @@ DROP TABLE IF EXISTS `session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `session` (
-  `session_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `teacher_username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `student_username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `skill_id` int DEFAULT NULL,
-  `credit_used` int DEFAULT '5',
+  `session_id` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `initiator_username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `partner_username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `initiator_offered_skill_id` int DEFAULT NULL,
+  `partner_offered_skill_id` int DEFAULT NULL,
   `schedule_time` datetime DEFAULT NULL,
-  `status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'pending',
-  `link` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `status` enum('pending','accepted','completed','cancelled') COLLATE utf8mb4_general_ci DEFAULT 'pending',
+  `link` text COLLATE utf8mb4_general_ci,
+  `credit_used` int DEFAULT '5',
   PRIMARY KEY (`session_id`),
-  KEY `teacher_username` (`teacher_username`),
-  KEY `student_username` (`student_username`),
-  KEY `skill_id` (`skill_id`),
-  CONSTRAINT `session_ibfk_1` FOREIGN KEY (`teacher_username`) REFERENCES `user` (`username`),
-  CONSTRAINT `session_ibfk_2` FOREIGN KEY (`student_username`) REFERENCES `user` (`username`),
-  CONSTRAINT `session_ibfk_3` FOREIGN KEY (`skill_id`) REFERENCES `skill` (`skill_id`)
+  KEY `initiator_username` (`initiator_username`),
+  KEY `partner_username` (`partner_username`),
+  KEY `initiator_offered_skill_id` (`initiator_offered_skill_id`),
+  KEY `partner_offered_skill_id` (`partner_offered_skill_id`),
+  CONSTRAINT `session_ibfk_1` FOREIGN KEY (`initiator_username`) REFERENCES `user` (`username`),
+  CONSTRAINT `session_ibfk_2` FOREIGN KEY (`partner_username`) REFERENCES `user` (`username`),
+  CONSTRAINT `session_ibfk_3` FOREIGN KEY (`initiator_offered_skill_id`) REFERENCES `skill` (`skill_id`),
+  CONSTRAINT `session_ibfk_4` FOREIGN KEY (`partner_offered_skill_id`) REFERENCES `skill` (`skill_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -266,35 +272,8 @@ CREATE TABLE `session` (
 
 LOCK TABLES `session` WRITE;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
+INSERT INTO `session` VALUES ('97380f60','arvitexia','data_wiz',4,1,'2026-01-20 04:40:00','pending',NULL,5);
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `session_list`
---
-
-DROP TABLE IF EXISTS `session_list`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `session_list` (
-  `session_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `user_username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `session_time` datetime DEFAULT NULL,
-  `session_status` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`session_id`,`user_username`),
-  KEY `user_username` (`user_username`),
-  CONSTRAINT `session_list_ibfk_1` FOREIGN KEY (`session_id`) REFERENCES `session` (`session_id`),
-  CONSTRAINT `session_list_ibfk_2` FOREIGN KEY (`user_username`) REFERENCES `user` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `session_list`
---
-
-LOCK TABLES `session_list` WRITE;
-/*!40000 ALTER TABLE `session_list` DISABLE KEYS */;
-/*!40000 ALTER TABLE `session_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -353,7 +332,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('arvitexia','Mustafa Arvit Rezwan','arvit@gmail.com',NULL,0,50,1,'2025-12-23',1),('chef_marcus','Marcus V.','marcus@cook.com','Master of Italian cuisine. Looking for help with Social Media Marketing.',4.5,55,3,'2023-03-05',1),('data_wiz','Jordan Smith','j.smith@data.com','Data Scientist. Teaching PowerBI. Looking for French conversation practice.',5,90,5,'2023-05-01',1),('fitness_fan','Chloe Adams','chloe@fit.net','Certified Trainer. Teaching HIIT workouts. Wanting to learn Photography.',4.2,30,2,'2023-04-12',1),('guitar_hero','Liam Chen','liam@music.io','Professional musician. Teaching Acoustic Guitar for UI Design tips.',4.7,40,4,'2023-02-10',1),('js_newbie','Sam Wilson','sam@learn.io','Just starting my tech journey. Willing to teach English for JS help.',0,50,1,'2023-08-12',1),('marketing_gal','Elena Rodriguez','elena@growth.co','Marketing Strategist. Swap SEO growth hacks for Javascript basics.',4.4,50,3,'2023-06-10',1),('nifx_12345','Naimul Islam','nif3270x@gmail.com',NULL,0,50,1,'2025-12-23',1),('photo_phi','Philip Ng','phil@lens.com','Travel Photographer. Teaching Lightroom. Wanting to learn Basic Yoga.',4.6,45,3,'2023-05-15',1),('python_pro','Alex Rivera','alex@dev.com','Senior Dev. I can teach Python & SQL. Want to learn Spanish.',4.9,75,5,'2023-01-15',1),('ux_sarah','Sarah Jenkins','sarah@design.me','UI/UX Designer. I swap Figma tutorials for Backend logic help.',4.8,60,4,'2023-03-20',1),('yoga_guru','Maya Patil','maya@zen.com','Yoga Instructor. Teaching mindfulness. Interested in learning Video Editing.',4.9,65,4,'2023-07-01',1);
+INSERT INTO `user` VALUES ('arvitexia','Mustafa Arvit Rezwan','arvitexia@gamil.com','Hello, I am Arvit. Specialized in Linux Arch customization.',0,50,1,'2025-12-23',1),('chef_marcus','Marcus V.','marcus@cook.com','Master of Italian cuisine. Looking for help with Social Media Marketing.',4.5,55,3,'2023-03-05',1),('data_wiz','Jordan Smith','j.smith@data.com','Data Scientist. Teaching PowerBI. Looking for French conversation practice.',5,90,5,'2023-05-01',1),('fitness_fan','Chloe Adams','chloe@fit.net','Certified Trainer. Teaching HIIT workouts. Wanting to learn Photography.',4.2,30,2,'2023-04-12',1),('guitar_hero','Liam Chen','liam@music.io','Professional musician. Teaching Acoustic Guitar for UI Design tips.',4.7,40,4,'2023-02-10',1),('js_newbie','Sam Wilson','sam@learn.io','Just starting my tech journey. Willing to teach English for JS help.',0,50,1,'2023-08-12',1),('marketing_gal','Elena Rodriguez','elena@growth.co','Marketing Strategist. Swap SEO growth hacks for Javascript basics.',4.4,50,3,'2023-06-10',1),('noobmaster69','Noob Master','noob@gmail.com','Hello, I love potato.',0,50,1,'2025-12-31',1),('photo_phi','Philip Ng','phil@lens.com','Travel Photographer. Teaching Lightroom. Wanting to learn Basic Yoga.',4.6,45,3,'2023-05-15',1),('python_pro','Alex Rivera','alex@dev.com','Senior Dev. I can teach Python & SQL. Want to learn Spanish.',4.9,75,5,'2023-01-15',1),('ux_sarah','Sarah Jenkins','sarah@design.me','UI/UX Designer. I swap Figma tutorials for Backend logic help.',4.8,60,4,'2023-03-20',1),('yoga_guru','Maya Patil','maya@zen.com','Yoga Instructor. Teaching mindfulness. Interested in learning Video Editing.',4.9,65,4,'2023-07-01',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -382,7 +361,7 @@ CREATE TABLE `user_skills` (
 
 LOCK TABLES `user_skills` WRITE;
 /*!40000 ALTER TABLE `user_skills` DISABLE KEYS */;
-INSERT INTO `user_skills` VALUES ('data_wiz',6,'TEACH','Expert'),('data_wiz',10,'LEARN','Beginner'),('fitness_fan',5,'TEACH','Intermediate'),('fitness_fan',7,'LEARN','Beginner'),('guitar_hero',2,'TEACH','Expert'),('guitar_hero',4,'LEARN','Intermediate'),('python_pro',1,'TEACH','Expert'),('python_pro',10,'LEARN','Beginner'),('ux_sarah',1,'LEARN','Intermediate'),('ux_sarah',4,'TEACH','Expert');
+INSERT INTO `user_skills` VALUES ('arvitexia',1,'LEARN',NULL),('arvitexia',4,'TEACH',NULL),('arvitexia',5,'TEACH',NULL),('arvitexia',6,'LEARN',NULL),('arvitexia',8,'LEARN',NULL),('data_wiz',6,'TEACH','Expert'),('data_wiz',10,'LEARN','Beginner'),('fitness_fan',5,'TEACH','Intermediate'),('fitness_fan',7,'LEARN','Beginner'),('guitar_hero',2,'TEACH','Expert'),('guitar_hero',4,'LEARN','Intermediate'),('noobmaster69',5,'TEACH',NULL),('noobmaster69',7,'LEARN',NULL),('noobmaster69',9,'TEACH',NULL),('noobmaster69',10,'LEARN',NULL),('python_pro',1,'TEACH','Expert'),('python_pro',10,'LEARN','Beginner'),('ux_sarah',1,'LEARN','Intermediate'),('ux_sarah',4,'TEACH','Expert');
 /*!40000 ALTER TABLE `user_skills` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -395,4 +374,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-23 10:11:43
+-- Dump completed on 2026-01-06  1:55:41

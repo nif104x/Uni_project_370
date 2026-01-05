@@ -11,7 +11,7 @@
       <ul>
         <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
         <li class="active"><a href="{% url 'chat' %}">Connections</a></li>
-        <li><a href="#">Session History</a></li>
+        <li><a href="{% url 'view_session' %}" style="text-decoration:none; color:white;">Session History</a></li>
         <li><a href="{% url 'self_profile' %}">My Profile</a></li>
       </ul>
     </nav>
@@ -34,7 +34,7 @@
               <div class="avatar">{{username|first|upper}}</div>
               <div class="contact-info">
                 <p class="contact-name">{{ username }}</p>
-                <p class="last-msg">Sent you a request...</p>
+                {% comment %} <p class="last-msg">Sent you a request...</p> {% endcomment %}
               </div>
             </div>
           </a>

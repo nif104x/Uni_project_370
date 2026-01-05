@@ -60,6 +60,7 @@ def login(request):
 
 def dashboard(request):
     username = request.session.get('username')
+    recent_sessions = db_get_dashboard_sessions(username)
     if not username:
         return redirect('/account/login/')
     
@@ -69,7 +70,7 @@ def dashboard(request):
         return render(request, 'skillEngine/profile_grid.html', {'profiles':profiles})
 
     profile = get_user_full_profile(username)
-    return render(request, 'accounts/dashboard.html', {'profile':profile, 'username':username})
+    return render(request, 'accounts/dashboard.html', {'profile':profile, 'username':username, 'recent_sessions': recent_sessions})
 
 
 

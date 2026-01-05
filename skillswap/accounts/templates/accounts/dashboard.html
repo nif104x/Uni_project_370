@@ -16,7 +16,7 @@
       <ul>
         <li class='active'><a style="text-decoration:none; color:white;" href="{% url 'dashboard' %}">Dashboard</a></li>
         <li><a href="{% url 'chat' %}" style="text-decoration:none; color:white;">Connections</a></li>
-        <li>Session History</li>
+        <li><a href="{% url 'view_session' %}" style="text-decoration:none; color:white;">Session History</a></li>
         <li><a style="text-decoration:none; color:white;" href="{% url 'self_profile' %}">My Profile</a></li>
       </ul>
     </nav>
@@ -103,18 +103,22 @@
                 </tr>
               </thead>
               <tbody>
+                {% for p_username, skill, schedule, status in recent_sessions %}
                 <tr>
-                  <td>@mikesmith</td>
-                  <td>Web Design</td>
-                  <td>Dec 24, 10:00 AM</td>
-                  <td><span class="status-pill accepted">Accepted</span></td>
+                  <td>@{{ p_username }}</td>
+                  <td>{{ skill }}</td>
+                  <td>{{ schedule|date:"M d, h:i A" }}</td>
+                  <td><span class="status-pill {{ status|lower }}">
+                    {{ status|capfirst }}
+                  </span></td>
                 </tr>
+                {% empty %}
                 <tr>
-                  <td>@sarah_j</td>
-                  <td>Spanish 101</td>
-                  <td>Dec 26, 02:00 PM</td>
-                  <td><span class="status-pill pending">Pending</span></td>
+                  <td colspan="4" style="text-align: center; padding: 20px; color: var(--text-light);">
+                    No upcoming sessions found.
+                  </td>
                 </tr>
+                {% endfor %}
               </tbody>
             </table>
           </div>

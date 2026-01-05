@@ -40,3 +40,13 @@ def get_profile(username):
                 
         return profile
     
+
+def db_get_all_user_skills(username):
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT s.skill_name, us.skill_type 
+            FROM user_skills us
+            JOIN skill s ON us.skill_id = s.skill_id
+            WHERE us.username = %s
+        """, [username])
+        return cursor.fetchall()

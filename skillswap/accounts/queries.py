@@ -212,7 +212,33 @@ def delete_skill(username, skill):
             """, [username, skill]
         )
 
-
+def db_get_dashboard_sessions(username):
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT 
+                u.username AS partner_username,
+                -- The skill the partner is providing to you
+                CASE 
+                    WHEN s.initiator_username = %s THEN sk2.skill_name 
+                    ELSE sk1.skill_name 
+                END AS session_skill,
+                s.schedule_time,
+                s.status
+            FROM session s
+            JOIN user u ON u.username = (
+                CASE 
+                    WHEN s.initiator_username = %s THEN s.partner_username 
+                    ELSE s.initiator_username 
+                END
+            )
+            JOIN skill sk1 ON s.initiator_offered_skill_id = sk1.skill_id
+            JOIN skill sk2 ON s.partner_offered_skill_id = sk2.skill_id
+            WHERE (s.initiator_username = %s OR s.partner_username = %s)
+            AND s.status IN ('pending', 'accepted')
+            ORDER BY s.schedule_time ASC
+            LIMIT 5
+        """, [username, username, username, username])
+        return cursor.fetchall()
 
 
 

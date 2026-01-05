@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'accounts',
     'connection',
     'skillEngine',
+    'session',
+    'Owner'
 ]
 
 MIDDLEWARE = [

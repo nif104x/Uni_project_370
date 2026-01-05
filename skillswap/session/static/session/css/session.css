@@ -1,0 +1,330 @@
+:root {
+  --bg: #f0f2f5;
+  --sidebar: #1a202c;
+  --primary: #4c51bf;
+  --text-dark: #2d3748;
+  --text-light: #718096;
+  --white: #ffffff;
+  --success: #48bb78;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  display: flex;
+  background-color: var(--bg);
+  color: var(--text-dark);
+}
+
+/* Sidebar Navigation */
+nav {
+  width: 260px;
+  background: var(--sidebar);
+  height: 100vh;
+  color: white;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+nav .logo {
+  padding: 30px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #a3b1ff;
+  border-bottom: 1px solid #2d3748;
+}
+
+nav ul {
+  list-style: none;
+  padding: 20px 0;
+  margin: 0;
+  flex-grow: 1;
+}
+
+nav ul li {
+  padding: 15px 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+nav ul li a {
+  color: #cbd5e0;
+  text-decoration: none;
+  display: block;
+}
+
+nav ul li:hover {
+  background: #2d3748;
+}
+nav ul li:hover a {
+  color: white;
+}
+
+nav ul li.active {
+  background: var(--primary);
+  color: white;
+  border-right: 4px solid #a3b1ff;
+}
+
+nav ul li.active a {
+  color: white;
+  font-weight: bold;
+}
+
+/* Main Content Layout */
+.content {
+  margin-left: 260px; /* Accounts for fixed sidebar */
+  padding: 40px;
+  width: calc(100% - 260px);
+}
+
+.page-header {
+  margin-bottom: 30px;
+}
+.page-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+.page-header p {
+  color: var(--text-light);
+  margin-top: 5px;
+}
+
+/* Session Cards */
+.session-card {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s ease;
+}
+
+.session-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.user-details {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  background: #edf2ff;
+  color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+.partner-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.status-badge {
+  font-size: 0.75rem;
+  color: var(--success);
+  background: #f0fff4;
+  padding: 2px 0px;
+  border-radius: 4px;
+  width: fit-content;
+  margin-top: 4px;
+}
+
+.action-area {
+  text-align: right;
+}
+.date {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 8px;
+}
+
+.btn-action {
+  background: var(--primary);
+  color: white;
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.btn-action:hover {
+  background: #3c40a0;
+}
+
+/* Layout Positioning */
+.session-layout {
+  display: flex;
+  gap: 30px;
+}
+
+.sessions-column {
+  flex: 2; /* Takes up 2/3 of space */
+}
+
+.creation-sidebar {
+  flex: 1; /* Takes up 1/3 of space */
+  position: sticky;
+  top: 40px;
+  height: fit-content;
+}
+
+/* Tool Card Styling */
+.tool-card {
+  background: var(--white);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.tool-card h3 {
+  margin-top: 0;
+  color: var(--primary);
+}
+
+.tool-card label {
+  display: block;
+  font-size: 0.85rem;
+  margin: 15px 0 5px;
+  font-weight: 600;
+}
+
+.tool-card input,
+.tool-card select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.btn-create {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Link Corner Styling */
+.link-corner {
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px dashed #cbd5e0;
+  min-width: 250px;
+}
+
+.link-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--text-light);
+  display: block;
+  margin-bottom: 5px;
+}
+
+.link-box {
+  display: flex;
+  gap: 5px;
+}
+
+.link-box input {
+  font-size: 0.8rem;
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  width: 100%;
+}
+
+.copy-btn {
+  font-size: 0.7rem;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 2px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Layout for side-by-side Date and Time */
+.input-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.input-group {
+  flex: 1;
+}
+
+.input-group label {
+  margin-top: 0 !important; /* Overrides the 15px margin for grouped labels */
+}
+
+/* Specific styling for the native browser pickers */
+input[type="date"],
+input[type="time"] {
+  font-family: inherit;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+/* Hover effect for form inputs */
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(76, 81, 191, 0.1);
+}
+
+/* Keep the same card structure but add a slight orange tint to the border */
+.request-style {
+  border-left: 5px solid #ed8936 !important;
+}
+
+/* Make sure buttons in the "Link Corner" look like the primary buttons */
+.request-style .btn-action {
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.request-style .btn-action:hover {
+  opacity: 0.9;
+}
+
+/* Ensure the layout doesn't break on small screens */
+.link-box {
+  display: flex;
+  align-items: center;
+}
+
+

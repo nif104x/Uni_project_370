@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Meeting</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      #controls {
+        height: 60px;
+        background: #1a202c;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0 20px;
+      }
+
+      #complete-btn {
+        background: #48bb78;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      #complete-btn:hover {
+        opacity: 0.9;
+      }
+
+      iframe {
+        width: 100%;
+        height: calc(100vh - 60px);
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="controls">
+      <button id="complete-btn">
+        <a
+          href="{% url 'view_session' %}"
+          style="text-decoration: none; color: white">Complete</a>
+      </button>
+    </div>
+
+    <iframe
+      id="jitsi-frame"
+      src="{{link}}"
+      allow="camera; microphone; fullscreen; display-capture"
+    ></iframe>
+  </body>
+</html>

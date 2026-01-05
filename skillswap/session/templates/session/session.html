@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session History | SkillSwap</title>
+    <link rel="stylesheet" href="{% static 'session/css/session.css' %}">
+</head>
+<body>
+
+    <nav>
+      <div class="logo">SkillSwap</div>
+      <ul>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'chat' %}">Connections</a></li>
+        <li class="active"><a href="{% url 'view_session' %}" style="text-decoration:none; color:white;">Session History</a></li>
+        <li><a href="{% url 'self_profile' %}">My Profile</a></li>
+      </ul>
+    </nav>
+
+    <main class="content">
+    <div class="session-layout">
+        
+        <div class="sessions-column">
+            <header class="page-header">
+                <h2>Active Sessions</h2>
+            </header>
+
+            {% for p_name, learning, trading, schedule, link, p_username in sessions %}
+            <div class="session-card">
+                <div class="user-details">
+                    <div class="avatar">{{ p_name|slice:":1" }}</div>
+                    
+                    <div class="info">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="partner-name">{{ p_name }}</span>
+                        </div>
+                        
+                        <span class="role-tag student">Learning: <b>{{ learning }}</b></span>
+                        
+                        <span class="skill-name">Trading for: <b>{{ trading }}</b></span>
+                        
+                        <span class="status-badge">Next: {{ schedule|date:"M d \a\t g:i A" }}</span>
+                    </div>
+                </div>
+                
+                <div class="link-corner">
+                    <span class="link-label">Meeting Link</span>
+                    <div class="link-box">
+                        <input type="text" value="{{ link|default:'Link not generated' }}" readonly id="link-{{ forloop.counter }}">
+                        <a href="{% url 'join' link %}" style="text-decoration: none; color: Blue;">
+                            <button class="copy-btn" style="text-decoration: none; color: white; background-color: #2e3680ff;">Join</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p style="text-align: lest; color: #718096;">No active sessions found.</p>
+            {% endfor %}
+            <header class="page-header" style="margin-top: 40px;">
+                <h2>Session Requests</h2>
+            </header>
+
+            {% for p_name, learn, trade, time, direction, s_id in pending_sessions %}
+            <div class="session-card request-style">
+                <div class="user-details">
+                    <div class="avatar" style="background: #fffaf0; color: #dd6b20; border: 1px solid #fbd38d;">
+                        {{ p_name|slice:":1" }}
+                    </div>
+                    
+                    <div class="info">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="partner-name">{{ p_name }}</span>
+                            <span class="role-tag" style="background: #feebc8; color: #c05621;">
+                                {% if direction == 'RECEIVED' %}Incoming Request{% else %}Pending Trade{% endif %}
+                            </span>
+                        </div>
+                        
+                        <span class="skill-name">
+                            Offering: <b>{{ learn }}</b> for your <b>{{ trade }}</b>
+                        </span>
+                        
+                        <span class="status-badge" style="background: #fff5f5; color: #e53e3e;">
+                            Proposed for: {{ time|date:"M d \a\t g:i A" }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="link-corner" style="border-color: #fbd38d; background: #fffaf0; position: relative; z-index: 10;">
+                    <span class="link-label">
+                        {% if direction == 'RECEIVED' %}Response Required{% else %}Waiting for Partner{% endif %}
+                    </span>
+                    
+                    <div class="link-box" style="gap: 10px; margin-top: 10px; display: flex;">
+                        {% if direction == 'RECEIVED' %}
+                            <a href="{% url 'accept_session' s_id %}" class="btn-action" style="background: #48bb78; color: white; text-decoration: none; padding: 8px 15px; border-radius: 6px; flex: 1; text-align: center; font-size: 0.85rem; font-weight: bold; cursor: pointer; display: inline-block;">
+                                Accept
+                            </a>
+
+                            <a href="{% url 'decline_session' s_id %}" class="btn-action" style="background: #e53e3e; color: white; text-decoration: none; padding: 8px 15px; border-radius: 6px; flex: 1; text-align: center; font-size: 0.85rem; font-weight: bold; cursor: pointer; display: inline-block;">
+                                Decline
+                            </a>
+                        {% else %}
+                            <a href="{% url 'cancel_session' s_id %}" class="btn-action" style="background: #a0aec0; color: white; text-decoration: none; padding: 8px 15px; border-radius: 6px; flex: 1; text-align: center; font-size: 0.85rem; font-weight: bold; cursor: pointer; display: inline-block;">
+                                Cancel Request
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+                <p style="text-align: lest; color: #718096;">No pending requests at the moment.</p>
+            {% endfor %}
+        </div>
+        <div class="creation-sidebar">
+            <div class="tool-card">
+                <h3 style="text-align: center;">Propose a Skill Trade</h3>
+                <p style="font-size: 0.8rem; color: var(--text-light); margin-bottom: 20px; text-align: center;   ">
+                    Set up a mutual exchange of knowledge.
+                </p>
+                
+            <form method="POST">
+                {% csrf_token %}
+                
+                <label>Trade Partner</label>
+                <select class="full-width" name="user">
+                    {% for u_name in connection %}
+                        <option value="{{ u_name }}">{{ u_name }}</option>
+                    {% endfor %}
+                </select>
+
+                <div class="trade-box">
+                    <div class="input-group">
+                        <label>My Offering</label>
+                        <select name="offer">
+                            {% for t in teach %}<option value="{{ t }}">{{ t }}</option>{% endfor %}
+                        </select>
+                    </div>
+                    <div class="trade-icon">⇄</div>
+                    <div class="input-group">
+                        <label>Partner's Skill</label>
+                        <select name="rqst">
+                            {% for l in learn %}<option value="{{ l }}">{{ l }}</option>{% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>Date</label>
+                        <input type="date" name="date" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Time</label>
+                        <input type="time" name="time" required> </div>
+                </div>
+
+                <button type="submit" class="btn-create">Send Trade Proposal</button>
+            </form>
+            </div>
+        </div>
+
+    </div>
+    </main>
+
+</body>
+</html>
